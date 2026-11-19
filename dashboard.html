@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePoint Hospital Jaipur — Digital Marketing & Analytics Dashboard</title>
+  <script>
+    tailwind = {
+      darkMode: 'class'
+    };
+  </script>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --background: #f8fafc;
+      --card: #ffffff;
+      --card-border: #e2e8f0;
+      --foreground: #0f172a;
+      --muted-foreground: #475569;
+    }
+    html.dark, body.dark, :root.dark {
+      --background: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --foreground: #f8fafc;
+      --muted-foreground: #94a3b8;
+    }
+    body {
+      background-color: var(--background) !important;
+      color: var(--foreground) !important;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen p-4 md:p-6 font-sans">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- Top Executive Header -->
+    <header class="bg-[var(--card)] rounded-xl border border-[var(--card-border)] p-4 md:p-5 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        
+        <!-- Hospital Branding -->
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-xl bg-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-md shrink-0">
+            CP+
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="text-xl md:text-2xl font-bold tracking-tight text-[var(--foreground)]" id="brandHospitalName">
+                CarePoint Hospital, Jaipur
+              </h1>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                NABH &amp; NABL Accredited
+              </span>
+            </div>
+            <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5" id="brandSubtitle">
+              Project B5: Digital Marketing Strategy, Campaign Analytics &amp; Patient Growth Econometric Model
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons & Quick Nav -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <a href="index.html" target="_blank" 
+             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--card-border)] bg-[var(--background)] hover:bg-[var(--card-border)] transition text-xs font-semibold text-teal-600 dark:text-teal-400 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Live Patient Website
+          </a>
+
+          <button onclick="openSettingsModal()" 
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition text-xs font-semibold shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            Edit Model Assumptions
+          </button>
+
+          <button onclick="toggleTheme()" id="btnTheme" title="Toggle Light/Dark Theme"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--card-border)] bg-[var(--background)] hover:bg-[var(--card-border)] transition text-xs text-[var(--foreground)] shadow-sm">
+            <span>🌙</span> <span class="hidden sm:inline" id="btnThemeText">Dark</span>
+          </button>
+
+          <button onclick="window.print()" 
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--card-border)] bg-[var(--background)] hover:bg-[var(--card-border)] transition text-xs text-[var(--foreground)] shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            Print / PDF
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Top Key Metrics Ribbon (6 Core KPIs) -->
+    <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">Monthly Budget</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-[var(--foreground)]" id="kpi-budget">₹48,000</span>
+          <span class="text-[10px] text-teal-600 font-semibold" id="kpi-split-tag">55% / 45%</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="kpi-quarterly">Quarterly: ₹1.44L</span>
+      </div>
+
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">Paid Impressions</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-[var(--foreground)]" id="kpi-impressions">300,000</span>
+          <span class="text-[10px] text-emerald-600 font-semibold">+104k Org.</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="kpi-reach">~120k Unique Patients</span>
+      </div>
+
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">Monthly Inquiries</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-teal-600 dark:text-teal-400" id="kpi-enquiries">590</span>
+          <span class="text-[10px] text-emerald-600 font-semibold" id="kpi-cvr-enq">8.2% CVR</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block">WhatsApp &amp; Web Leads</span>
+      </div>
+
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">Cost Per Lead (CPL)</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-emerald-600 dark:text-emerald-400" id="kpi-cpl">₹81.36</span>
+          <span class="text-[10px] text-emerald-600 font-semibold">Target ≤ ₹120</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="kpi-cpc">CPC: ₹6.67</span>
+      </div>
+
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">OPD Footfall (Visits)</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-teal-600 dark:text-teal-400" id="kpi-footfall">246</span>
+          <span class="text-[10px] text-emerald-600 font-semibold">+35% Target</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="kpi-cac">CAC: ₹195 / patient</span>
+      </div>
+
+      <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+        <span class="text-[11px] font-medium text-[var(--muted-foreground)] uppercase tracking-wider block">Monthly Rev &amp; ROAS</span>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span class="text-lg md:text-xl font-bold text-emerald-600 dark:text-emerald-400" id="kpi-revenue">₹10.55L</span>
+          <span class="text-[10px] font-extrabold text-emerald-600 bg-emerald-500/10 px-1 rounded" id="kpi-roas">21.9x</span>
+        </div>
+        <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block">OPD + Surgical IPD</span>
+      </div>
+    </section>
+
+    <!-- Main Navigation Tabs -->
+    <div class="flex items-center gap-1.5 border-b border-[var(--card-border)] overflow-x-auto pb-px text-sm">
+      <button onclick="switchTab('tab-funnel')" id="btn-tab-funnel" class="tab-btn active px-4 py-2.5 font-medium border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 whitespace-nowrap">
+        📈 Live Funnel &amp; Budget Simulator
+      </button>
+      <button onclick="switchTab('tab-insights')" id="btn-tab-insights" class="tab-btn px-4 py-2.5 font-medium border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] whitespace-nowrap">
+        📱 Meta Social Insights (4-Week Pilot)
+      </button>
+      <button onclick="switchTab('tab-competitors')" id="btn-tab-competitors" class="tab-btn px-4 py-2.5 font-medium border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] whitespace-nowrap">
+        ⚔️ Competitor Benchmarking
+      </button>
+      <button onclick="switchTab('tab-gbp')" id="btn-tab-gbp" class="tab-btn px-4 py-2.5 font-medium border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] whitespace-nowrap">
+        📍 Google Business Profile Checklist
+      </button>
+      <button onclick="switchTab('tab-calendar')" id="btn-tab-calendar" class="tab-btn px-4 py-2.5 font-medium border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] whitespace-nowrap">
+        🗓️ 3-Month Content Roadmap &amp; Posts
+      </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: LIVE FUNNEL & BUDGET SIMULATOR      -->
+    <!-- ========================================== -->
+    <div id="tab-funnel" class="tab-content space-y-6">
+
+      <!-- Interactive Controls Panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        
+        <!-- Controls -->
+        <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-4 lg:col-span-1">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-base text-[var(--foreground)]">Interactive Controls</h2>
+            <span class="text-xs px-2 py-0.5 rounded bg-teal-500/15 text-teal-700 dark:text-teal-300 font-medium" id="activeScenarioLabel">Base Model</span>
+          </div>
+
+          <!-- Monthly Budget Slider -->
+          <div>
+            <div class="flex justify-between items-center mb-1 text-xs">
+              <label for="mainBudgetSlider" class="text-[var(--muted-foreground)] font-medium">Monthly Ad Spend</label>
+              <span id="mainBudgetValue" class="font-bold text-base text-teal-600 dark:text-teal-400">₹48,000</span>
+            </div>
+            <input id="mainBudgetSlider" type="range" min="15000" max="200000" step="1000" value="48000"
+                   class="w-full h-2 bg-[var(--card-border)] rounded-lg appearance-none cursor-pointer accent-teal-600">
+            <div class="flex justify-between text-[10px] text-[var(--muted-foreground)] mt-1">
+              <span>₹15k</span>
+              <span>₹1,00,000</span>
+              <span>₹2,00,000</span>
+            </div>
+          </div>
+
+          <!-- Channel Allocation Slider -->
+          <div>
+            <div class="flex justify-between items-center mb-1 text-xs">
+              <label for="channelSplitSlider" class="text-[var(--muted-foreground)] font-medium">Channel Allocation</label>
+              <span id="channelSplitValue" class="font-medium text-[var(--foreground)]">55% Meta / 45% Google</span>
+            </div>
+            <input id="channelSplitSlider" type="range" min="20" max="80" step="5" value="55"
+                   class="w-full h-2 bg-[var(--card-border)] rounded-lg appearance-none cursor-pointer accent-teal-600">
+            <div class="flex justify-between text-[10px] text-[var(--muted-foreground)] mt-1">
+              <span>Google Search Focus</span>
+              <span>Balanced</span>
+              <span>Meta Video Reels Focus</span>
+            </div>
+          </div>
+
+          <!-- Scenario Radio Selector -->
+          <div class="pt-2 border-t border-[var(--card-border)]">
+            <label class="text-xs text-[var(--muted-foreground)] font-medium block mb-2">Model Conversion Rigor</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setMainScenario('Conservative')" id="mbtn-Conservative"
+                      class="py-2 px-2 text-center rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition">
+                Conservative
+              </button>
+              <button onclick="setMainScenario('Base')" id="mbtn-Base"
+                      class="py-2 px-2 text-center rounded-lg bg-teal-600 text-white text-xs font-semibold shadow-sm transition">
+                Base
+              </button>
+              <button onclick="setMainScenario('Optimistic')" id="mbtn-Optimistic"
+                      class="py-2 px-2 text-center rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition">
+                Optimistic
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Edit Link -->
+          <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-xs space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-[var(--foreground)]">Clinical Ticket Sizes:</span>
+              <button onclick="openSettingsModal()" class="text-teal-600 dark:text-teal-400 hover:underline font-semibold text-[11px]">
+                ⚙️ Change
+              </button>
+            </div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>OPD Avg Revenue:</span>
+              <strong id="displayOpdRev" class="text-[var(--foreground)]">₹2,200</strong>
+            </div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>IPD Surgical Avg Ticket:</span>
+              <strong id="displayIpdRev" class="text-[var(--foreground)]">₹65,000</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conversion Funnel Visualization -->
+        <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm lg:col-span-2 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-base text-[var(--foreground)]">Patient Journey Conversion Pipeline</h2>
+            <span class="text-xs text-[var(--muted-foreground)]">Calculated from Jaipur 60-Person Patient Survey Data</span>
+          </div>
+
+          <!-- Stage-by-Stage Flow Diagram -->
+          <div class="space-y-3 pt-2">
+            
+            <!-- Stage 1 -->
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 font-bold flex items-center justify-center text-xs shrink-0">1</span>
+                <div>
+                  <h4 class="text-xs font-bold text-[var(--foreground)]">Paid &amp; Organic Impressions</h4>
+                  <p class="text-[11px] text-[var(--muted-foreground)]">Local Meta Reels, Feeds &amp; Google Map Sponsored Pins</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span id="f-impressions" class="text-sm font-bold font-mono text-[var(--foreground)]">300,000</span>
+                <span class="text-[10px] text-[var(--muted-foreground)] block" id="f-cpm-lbl">CPM: ₹160</span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="text-center text-[10px] text-[var(--muted-foreground)] font-mono -my-1">
+              ↓ Click-Through Rate: <span id="f-ctr" class="font-bold text-teal-600">2.40%</span> (Meta Video + High-Intent Search)
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 font-bold flex items-center justify-center text-xs shrink-0">2</span>
+                <div>
+                  <h4 class="text-xs font-bold text-[var(--foreground)]">Landing Page Visits</h4>
+                  <p class="text-[11px] text-[var(--muted-foreground)]">CarePoint Single-Page Web App (<100ms load time)</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span id="f-clicks" class="text-sm font-bold font-mono text-[var(--foreground)]">7,200</span>
+                <span id="f-cpc" class="text-[10px] text-[var(--muted-foreground)] block">CPC: ₹6.67</span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="text-center text-[10px] text-[var(--muted-foreground)] font-mono -my-1">
+              ↓ Landing Conversion Rate: <span id="f-cvrEnq" class="font-bold text-teal-600">8.20%</span> (WhatsApp 1-Tap Trigger)
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 font-bold flex items-center justify-center text-xs shrink-0">3</span>
+                <div>
+                  <h4 class="text-xs font-bold text-[var(--foreground)]">Qualified Patient Inquiries</h4>
+                  <p class="text-[11px] text-[var(--muted-foreground)]">WhatsApp structured bookings &amp; website form leads</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span id="f-enquiries" class="text-sm font-bold font-mono text-teal-600 dark:text-teal-400">590</span>
+                <span id="f-cpl" class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 block">CPL: ₹81.36</span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="text-center text-[10px] text-[var(--muted-foreground)] font-mono -my-1">
+              ↓ Inquiry-to-Appointment Rate: <span id="f-cvrBook" class="font-bold text-teal-600">55.0%</span> (Reception SLA &lt; 3 min)
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-600 font-bold flex items-center justify-center text-xs shrink-0">4</span>
+                <div>
+                  <h4 class="text-xs font-bold text-[var(--foreground)]">Confirmed Appointments &amp; OPD Footfall</h4>
+                  <p class="text-[11px] text-[var(--muted-foreground)]">Actual walk-ins with show-up rate</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span id="f-footfall" class="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">246 Patients</span>
+                <span id="f-cac" class="text-[10px] font-medium text-[var(--muted-foreground)] block">CAC: ₹195.12</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sensitivity Table -->
+      <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h3 class="font-bold text-base text-[var(--foreground)]">Attribution &amp; Sensitivity Matrix</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Dynamic sensitivity modeling based on your active budget &amp; ticket settings</p>
+          </div>
+          <span class="text-xs font-mono text-teal-600 dark:text-teal-400 font-semibold bg-teal-500/10 px-2.5 py-1 rounded-md">
+            Source: marketing_model.py simulation
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left" id="sensitivityTable">
+            <thead class="bg-[var(--background)] text-[var(--muted-foreground)] border-y border-[var(--card-border)] uppercase text-[10px]">
+              <tr>
+                <th class="py-2.5 px-3">Scenario</th>
+                <th class="py-2.5 px-3">Clicks</th>
+                <th class="py-2.5 px-3">Enquiries</th>
+                <th class="py-2.5 px-3">CPL (INR)</th>
+                <th class="py-2.5 px-3">Appts</th>
+                <th class="py-2.5 px-3">OPD Footfall</th>
+                <th class="py-2.5 px-3">CAC / Patient</th>
+                <th class="py-2.5 px-3">IPD Surg.</th>
+                <th class="py-2.5 px-3">Monthly Rev</th>
+                <th class="py-2.5 px-3">ROAS Multiple</th>
+                <th class="py-2.5 px-3">Quarterly Net Profit</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--card-border)]" id="sensitivityTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: META SOCIAL INSIGHTS AUDIT          -->
+    <!-- ========================================== -->
+    <div id="tab-insights" class="tab-content hidden space-y-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+          <span class="text-xs text-[var(--muted-foreground)] block">Instagram Reels Organic Reach</span>
+          <div class="mt-1 flex items-baseline justify-between">
+            <span class="text-xl font-bold text-teal-600 dark:text-teal-400" id="stat-reels-reach">67,800</span>
+            <span class="text-xs font-semibold text-emerald-600" id="stat-reels-eng">12.84% Eng. Rate</span>
+          </div>
+          <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="stat-reels-count">4 Reels published</span>
+        </div>
+
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+          <span class="text-xs text-[var(--muted-foreground)] block">Carousel Infographics Reach</span>
+          <div class="mt-1 flex items-baseline justify-between">
+            <span class="text-xl font-bold text-[var(--foreground)]" id="stat-carousels-reach">23,400</span>
+            <span class="text-xs font-semibold text-emerald-600" id="stat-carousels-eng">11.18% Eng. Rate</span>
+          </div>
+          <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="stat-carousels-count">4 Carousels published</span>
+        </div>
+
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm">
+          <span class="text-xs text-[var(--muted-foreground)] block">Single Image Notices Reach</span>
+          <div class="mt-1 flex items-baseline justify-between">
+            <span class="text-xl font-bold text-[var(--foreground)]" id="stat-images-reach">13,300</span>
+            <span class="text-xs font-semibold text-amber-500" id="stat-images-eng">5.66% Eng. Rate</span>
+          </div>
+          <span class="text-[11px] text-[var(--muted-foreground)] mt-1 block" id="stat-images-count">4 Images published</span>
+        </div>
+      </div>
+
+      <!-- Historical 12-Post Dataset Table -->
+      <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h3 class="font-bold text-base text-[var(--foreground)]">Meta Insights Post Performance Log</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Exported data from `social-insights/insights.csv` (You can also add custom posts)</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openNewPostModal()" class="px-3 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold shadow-sm flex items-center gap-1">
+              <span>+</span> Log New Post
+            </button>
+            <div class="flex items-center gap-1 text-xs">
+              <button onclick="filterPosts('All')" id="fbtn-All" class="px-2.5 py-1 rounded bg-teal-600 text-white font-medium">All</button>
+              <button onclick="filterPosts('Reel')" id="fbtn-Reel" class="px-2.5 py-1 rounded border border-[var(--card-border)] hover:bg-[var(--card-border)] text-[var(--foreground)]">Reels</button>
+              <button onclick="filterPosts('Carousel')" id="fbtn-Carousel" class="px-2.5 py-1 rounded border border-[var(--card-border)] hover:bg-[var(--card-border)] text-[var(--foreground)]">Carousels</button>
+              <button onclick="filterPosts('Image')" id="fbtn-Image" class="px-2.5 py-1 rounded border border-[var(--card-border)] hover:bg-[var(--card-border)] text-[var(--foreground)]">Images</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left" id="postsTable">
+            <thead class="bg-[var(--background)] text-[var(--muted-foreground)] border-y border-[var(--card-border)] uppercase text-[10px]">
+              <tr>
+                <th class="py-2.5 px-3">Publish Date</th>
+                <th class="py-2.5 px-3">Format</th>
+                <th class="py-2.5 px-3">Reach</th>
+                <th class="py-2.5 px-3">Likes</th>
+                <th class="py-2.5 px-3">Comments</th>
+                <th class="py-2.5 px-3">Saves</th>
+                <th class="py-2.5 px-3">Shares</th>
+                <th class="py-2.5 px-3">Total Eng.</th>
+                <th class="py-2.5 px-3">Engagement Rate</th>
+                <th class="py-2.5 px-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--card-border)] font-mono" id="postsTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: COMPETITOR BENCHMARKING MATRIX      -->
+    <!-- ========================================== -->
+    <div id="tab-competitors" class="tab-content hidden space-y-6">
+
+      <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-4">
+        <div>
+          <h2 class="font-bold text-base text-[var(--foreground)]">Jaipur Healthcare Digital Landscape Benchmark</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Auditing 3 key competitors in South and Central Jaipur against CarePoint Hospital</p>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-[var(--background)] text-[var(--muted-foreground)] border-y border-[var(--card-border)] uppercase text-[10px]">
+              <tr>
+                <th class="py-3 px-3.5">Dimension</th>
+                <th class="py-3 px-3.5">Fortis Escorts Jaipur</th>
+                <th class="py-3 px-3.5">Manipal Hospital Jaipur</th>
+                <th class="py-3 px-3.5">Apex Hospitals Malviya Nagar</th>
+                <th class="py-3 px-3.5 text-teal-600 dark:text-teal-400 bg-teal-500/5">CarePoint Hospital (Our Target)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--card-border)]">
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">Google Maps Rating</td>
+                <td class="py-3 px-3.5">4.2 ★ (4,100+ reviews)</td>
+                <td class="py-3 px-3.5">4.4 ★ (3,600+ reviews)</td>
+                <td class="py-3 px-3.5">4.3 ★ (2,800+ reviews)</td>
+                <td class="py-3 px-3.5 font-bold text-emerald-600 bg-teal-500/5">4.7 ★ (Target 500+ Organic)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">Instagram Presence</td>
+                <td class="py-3 px-3.5">18.5k followers</td>
+                <td class="py-3 px-3.5">24.2k followers</td>
+                <td class="py-3 px-3.5">9.8k followers</td>
+                <td class="py-3 px-3.5 font-medium text-teal-600 bg-teal-500/5">10k Local High-Intent Followers</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">Avg. Reel Reach</td>
+                <td class="py-3 px-3.5">3,000 – 8,000</td>
+                <td class="py-3 px-3.5">5,000 – 15,000</td>
+                <td class="py-3 px-3.5">1,500 – 4,000</td>
+                <td class="py-3 px-3.5 font-bold text-emerald-600 bg-teal-500/5">16,950+ (Verified in Pilot)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">Website Speed (Mobile)</td>
+                <td class="py-3 px-3.5 text-red-500">4.2s (Heavy CMS portal)</td>
+                <td class="py-3 px-3.5 text-amber-500">3.8s (Corporate multi-page)</td>
+                <td class="py-3 px-3.5 text-red-500">4.6s (Legacy framework)</td>
+                <td class="py-3 px-3.5 font-bold text-emerald-600 bg-teal-500/5">&lt; 0.1s (Pure semantic static page)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">Appointment UX</td>
+                <td class="py-3 px-3.5">Multi-step form / PBX hold</td>
+                <td class="py-3 px-3.5">Third-party portal login</td>
+                <td class="py-3 px-3.5">Call reception only</td>
+                <td class="py-3 px-3.5 font-bold text-teal-600 bg-teal-500/5">1-Tap WhatsApp Pre-filled Lead</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-medium text-[var(--foreground)]">OPD Fee Structure</td>
+                <td class="py-3 px-3.5">₹1,200 – ₹1,600</td>
+                <td class="py-3 px-3.5">₹1,000 – ₹1,400</td>
+                <td class="py-3 px-3.5">₹700 – ₹900</td>
+                <td class="py-3 px-3.5 font-bold text-emerald-600 bg-teal-500/5">₹600 Flat Transparent OPD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: GOOGLE BUSINESS PROFILE CHECKLIST   -->
+    <!-- ========================================== -->
+    <div id="tab-gbp" class="tab-content hidden space-y-6">
+
+      <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h2 class="font-bold text-base text-[var(--foreground)]">Google Business Profile (GBP) Local SEO Checklist</h2>
+            <p class="text-xs text-[var(--muted-foreground)]">Interactive checklist — click to toggle items (saved automatically)</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-600 border border-emerald-500/20" id="gbpCounter">
+            6 / 6 Completed
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs" id="gbpContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: 3-MONTH CONTENT ROADMAP & POSTS     -->
+    <!-- ========================================== -->
+    <div id="tab-calendar" class="tab-content hidden space-y-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400">MONTH 1</span>
+            <span class="text-[10px] bg-teal-500/10 px-2 py-0.5 rounded text-teal-700 dark:text-teal-300 font-medium">Foundation</span>
+          </div>
+          <h4 class="font-bold text-sm text-[var(--foreground)]">Brand Trust &amp; 24x7 Emergency</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Highlight NABH safety, 24x7 trauma team, Level-3 NICU, and Dr. Arvind Sharma (AIIMS Alumnus) credentials.</p>
+        </div>
+
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400">MONTH 2</span>
+            <span class="text-[10px] bg-teal-500/10 px-2 py-0.5 rounded text-teal-700 dark:text-teal-300 font-medium">Consideration</span>
+          </div>
+          <h4 class="font-bold text-sm text-[var(--foreground)]">Doctor Spotlights &amp; Procedures</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Educational Reels on joint replacement recovery, painless childbirth, and gallbladder surgery demystification.</p>
+        </div>
+
+        <div class="bg-[var(--card)] p-4 rounded-xl border border-[var(--card-border)] shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400">MONTH 3</span>
+            <span class="text-[10px] bg-teal-500/10 px-2 py-0.5 rounded text-teal-700 dark:text-teal-300 font-medium">Conversion</span>
+          </div>
+          <h4 class="font-bold text-sm text-[var(--foreground)]">Preventive Health &amp; Community Drives</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Promote ₹1,499 comprehensive checkups, local RWA health camps, and heart health awareness workshops.</p>
+        </div>
+      </div>
+
+      <!-- Quick Deliverables Preview -->
+      <div class="bg-[var(--card)] p-5 rounded-xl border border-[var(--card-border)] shadow-sm space-y-3">
+        <h3 class="font-bold text-base text-[var(--foreground)]">Deliverable Content Blueprints (Summary)</h3>
+        <p class="text-xs text-[var(--muted-foreground)]">Full copywriting, Canva layout specifications, and video scripts are detailed in the strategy artifact.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
+          <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+            <span class="font-semibold text-teal-600">Reel 1 (45s): Cardiology Emergency</span>
+            <p class="text-[var(--muted-foreground)] mt-1">"3 Silent Warning Signs of Heart Attack You Ignore as Acidity" by Dr. Arvind Sharma (ex-AIIMS). Hook, visual symptom walkthrough, and 24x7 trauma CTA.</p>
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+            <span class="font-semibold text-teal-600">Reel 2 (50s): Orthopaedics Myth-Busting</span>
+            <p class="text-[var(--muted-foreground)] mt-1">"Does Every Knee Pain Need Surgery?" by Dr. Vikramaditya Rathore. Demystifying early arthritis, non-surgical therapy, and rapid 24h walking recovery.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: EDIT MODEL ASSUMPTIONS & PARAMETERS                      -->
+  <!-- ============================================================== -->
+  <div id="settingsModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[var(--card)] rounded-2xl border border-[var(--card-border)] shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 space-y-5">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--card-border)]">
+        <div>
+          <h3 class="font-bold text-lg text-[var(--foreground)]">Edit Model Assumptions &amp; Clinical Parameters</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">Changes persist automatically to your browser storage</p>
+        </div>
+        <button onclick="closeSettingsModal()" class="text-[var(--muted-foreground)] hover:text-[var(--foreground)] text-lg font-bold">✕</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Hospital / Clinic Name</label>
+          <input type="text" id="cfgHospitalName" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Location Subtitle</label>
+          <input type="text" id="cfgSubtitle" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Average OPD Consultation &amp; Lab Ticket (₹)</label>
+          <input type="number" id="cfgOpdRev" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Average IPD Surgical Admission Ticket (₹)</label>
+          <input type="number" id="cfgIpdRev" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Base CPM (Cost per 1,000 Impressions in ₹)</label>
+          <input type="number" id="cfgCpm" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Base Click-Through Rate (CTR %)</label>
+          <input type="number" step="0.01" id="cfgCtr" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Landing Page to Inquiry CVR (%)</label>
+          <input type="number" step="0.1" id="cfgCvrEnq" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Inquiry to Appointment Booking (%)</label>
+          <input type="number" step="0.1" id="cfgCvrBook" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Appointment Show-Up Rate (%)</label>
+          <input type="number" step="0.1" id="cfgShowUp" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">OPD to IPD Surgical Admission Rate (%)</label>
+          <input type="number" step="0.1" id="cfgIpdRate" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-[var(--card-border)] flex-wrap gap-2">
+        <div class="flex gap-2">
+          <button onclick="exportConfig()" class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] hover:bg-[var(--card-border)] text-xs text-[var(--foreground)]">
+            Export JSON
+          </button>
+          <label class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] hover:bg-[var(--card-border)] text-xs text-[var(--foreground)] cursor-pointer">
+            Import JSON
+            <input type="file" id="importConfigFile" class="hidden" accept=".json" onchange="importConfig(event)">
+          </label>
+          <button onclick="resetDefaults()" class="px-3 py-1.5 rounded-lg border border-red-500/30 text-red-600 hover:bg-red-500/10 text-xs">
+            Reset Defaults
+          </button>
+        </div>
+
+        <button onclick="saveSettings()" class="px-5 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs shadow-md">
+          Save &amp; Apply Changes
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: ADD NEW SOCIAL POST                                     -->
+  <!-- ============================================================== -->
+  <div id="newPostModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[var(--card)] rounded-2xl border border-[var(--card-border)] shadow-2xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--card-border)]">
+        <h3 class="font-bold text-base text-[var(--foreground)]">Log New Social Post / Reel</h3>
+        <button onclick="closeNewPostModal()" class="text-[var(--muted-foreground)] hover:text-[var(--foreground)]">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Publish Date</label>
+          <input type="date" id="npDate" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+        </div>
+        <div>
+          <label class="block font-medium text-[var(--muted-foreground)] mb-1">Post Format</label>
+          <select id="npType" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+            <option value="Reel">Reel (Video)</option>
+            <option value="Carousel">Carousel (Infographic)</option>
+            <option value="Image">Single Image</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-medium text-[var(--muted-foreground)] mb-1">Reach</label>
+            <input type="number" id="npReach" value="10000" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+          </div>
+          <div>
+            <label class="block font-medium text-[var(--muted-foreground)] mb-1">Likes</label>
+            <input type="number" id="npLikes" value="650" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block font-medium text-[var(--muted-foreground)] mb-1">Comments</label>
+            <input type="number" id="npComments" value="45" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+          </div>
+          <div>
+            <label class="block font-medium text-[var(--muted-foreground)] mb-1">Saves</label>
+            <input type="number" id="npSaves" value="180" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+          </div>
+          <div>
+            <label class="block font-medium text-[var(--muted-foreground)] mb-1">Shares</label>
+            <input type="number" id="npShares" value="120" class="w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--card-border)] text-[var(--foreground)]">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t border-[var(--card-border)]">
+        <button onclick="closeNewPostModal()" class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] text-xs text-[var(--foreground)]">Cancel</button>
+        <button onclick="saveNewPost()" class="px-4 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs shadow-sm">Save Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-side Logic Script with Full Persistence -->
+  <script>
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-teal-600', 'text-teal-600', 'dark:text-teal-400', 'active');
+        btn.classList.add('border-transparent', 'text-[var(--muted-foreground)]');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.classList.add('border-teal-600', 'text-teal-600', 'dark:text-teal-400', 'active');
+      activeBtn.classList.remove('border-transparent', 'text-[var(--muted-foreground)]');
+    }
+
+    // Default Configuration
+    const DEFAULT_CONFIG = {
+      hospitalName: "CarePoint Hospital, Jaipur",
+      subtitle: "Project B5: Digital Marketing Strategy, Campaign Analytics & Patient Growth Econometric Model",
+      opdRev: 2200,
+      ipdRev: 65000,
+      cpm: 160,
+      ctr: 2.4,       // in %
+      cvrEnq: 8.2,    // in %
+      cvrBook: 55.0,  // in %
+      showUp: 76.0,   // in %
+      ipdRate: 3.2    // in %
+    };
+
+    let userConfig = { ...DEFAULT_CONFIG };
+
+    function loadConfig() {
+      const saved = localStorage.getItem('carepoint_model_config');
+      if (saved) {
+        try {
+          userConfig = { ...DEFAULT_CONFIG, ...JSON.parse(saved) };
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      applyConfigToUI();
+    }
+
+    function applyConfigToUI() {
+      document.getElementById('brandHospitalName').textContent = userConfig.hospitalName;
+      document.getElementById('brandSubtitle').textContent = userConfig.subtitle;
+      document.getElementById('displayOpdRev').textContent = '₹' + fmtNum(userConfig.opdRev);
+      document.getElementById('displayIpdRev').textContent = '₹' + fmtNum(userConfig.ipdRev);
+      recalcMain();
+    }
+
+    function openSettingsModal() {
+      document.getElementById('cfgHospitalName').value = userConfig.hospitalName;
+      document.getElementById('cfgSubtitle').value = userConfig.subtitle;
+      document.getElementById('cfgOpdRev').value = userConfig.opdRev;
+      document.getElementById('cfgIpdRev').value = userConfig.ipdRev;
+      document.getElementById('cfgCpm').value = userConfig.cpm;
+      document.getElementById('cfgCtr').value = userConfig.ctr;
+      document.getElementById('cfgCvrEnq').value = userConfig.cvrEnq;
+      document.getElementById('cfgCvrBook').value = userConfig.cvrBook;
+      document.getElementById('cfgShowUp').value = userConfig.showUp;
+      document.getElementById('cfgIpdRate').value = userConfig.ipdRate;
+      document.getElementById('settingsModal').classList.remove('hidden');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').classList.add('hidden');
+    }
+
+    function saveSettings() {
+      userConfig.hospitalName = document.getElementById('cfgHospitalName').value || DEFAULT_CONFIG.hospitalName;
+      userConfig.subtitle = document.getElementById('cfgSubtitle').value || DEFAULT_CONFIG.subtitle;
+      userConfig.opdRev = parseFloat(document.getElementById('cfgOpdRev').value) || DEFAULT_CONFIG.opdRev;
+      userConfig.ipdRev = parseFloat(document.getElementById('cfgIpdRev').value) || DEFAULT_CONFIG.ipdRev;
+      userConfig.cpm = parseFloat(document.getElementById('cfgCpm').value) || DEFAULT_CONFIG.cpm;
+      userConfig.ctr = parseFloat(document.getElementById('cfgCtr').value) || DEFAULT_CONFIG.ctr;
+      userConfig.cvrEnq = parseFloat(document.getElementById('cfgCvrEnq').value) || DEFAULT_CONFIG.cvrEnq;
+      userConfig.cvrBook = parseFloat(document.getElementById('cfgCvrBook').value) || DEFAULT_CONFIG.cvrBook;
+      userConfig.showUp = parseFloat(document.getElementById('cfgShowUp').value) || DEFAULT_CONFIG.showUp;
+      userConfig.ipdRate = parseFloat(document.getElementById('cfgIpdRate').value) || DEFAULT_CONFIG.ipdRate;
+
+      localStorage.setItem('carepoint_model_config', JSON.stringify(userConfig));
+      applyConfigToUI();
+      closeSettingsModal();
+    }
+
+    function resetDefaults() {
+      userConfig = { ...DEFAULT_CONFIG };
+      localStorage.removeItem('carepoint_model_config');
+      applyConfigToUI();
+      openSettingsModal();
+    }
+
+    function exportConfig() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userConfig, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "carepoint_marketing_model_config.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importConfig(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          userConfig = { ...DEFAULT_CONFIG, ...JSON.parse(e.target.result) };
+          localStorage.setItem('carepoint_model_config', JSON.stringify(userConfig));
+          applyConfigToUI();
+          openSettingsModal();
+        } catch (err) {
+          alert("Invalid JSON configuration file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Dynamic Funnel Calculations
+    let activeScenario = 'Base';
+
+    function setMainScenario(sc) {
+      activeScenario = sc;
+      ['Conservative', 'Base', 'Optimistic'].forEach(s => {
+        const btn = document.getElementById('mbtn-' + s);
+        if (s === sc) {
+          btn.className = "py-2 px-2 text-center rounded-lg bg-teal-600 text-white text-xs font-semibold shadow-sm transition";
+        } else {
+          btn.className = "py-2 px-2 text-center rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition";
+        }
+      });
+      document.getElementById('activeScenarioLabel').textContent = sc + ' Model';
+      recalcMain();
+    }
+
+    function fmtNum(n) {
+      return new Intl.NumberFormat('en-IN').format(Math.round(n));
+    }
+
+    function recalcMain() {
+      const budget = parseFloat(document.getElementById('mainBudgetSlider').value);
+      const splitMeta = parseFloat(document.getElementById('channelSplitSlider').value);
+      const splitGoogle = 100 - splitMeta;
+
+      document.getElementById('mainBudgetValue').textContent = '₹' + fmtNum(budget);
+      document.getElementById('channelSplitValue').textContent = splitMeta + '% Meta / ' + splitGoogle + '% Google';
+      document.getElementById('kpi-split-tag').textContent = splitMeta + '% / ' + splitGoogle + '%';
+      document.getElementById('kpi-quarterly').textContent = 'Quarterly: ₹' + (budget * 3 / 100000).toFixed(2) + 'L';
+
+      // Multipliers based on active scenario
+      const mult = activeScenario === 'Conservative' ? 0.75 : activeScenario === 'Optimistic' ? 1.35 : 1.0;
+      const cpm = activeScenario === 'Conservative' ? userConfig.cpm * 1.12 : activeScenario === 'Optimistic' ? userConfig.cpm * 0.88 : userConfig.cpm;
+      const ctr = (userConfig.ctr / 100) * mult;
+      const cvrEnq = (userConfig.cvrEnq / 100) * mult;
+      const cvrBook = (userConfig.cvrBook / 100) * (activeScenario === 'Conservative' ? 0.82 : activeScenario === 'Optimistic' ? 1.18 : 1.0);
+      const showUp = (userConfig.showUp / 100) * (activeScenario === 'Conservative' ? 0.92 : activeScenario === 'Optimistic' ? 1.08 : 1.0);
+      const ipdRate = (userConfig.ipdRate / 100) * (activeScenario === 'Conservative' ? 0.78 : activeScenario === 'Optimistic' ? 1.25 : 1.0);
+
+      const impressions = (budget / cpm) * 1000;
+      const clicks = impressions * ctr;
+      const enquiries = clicks * cvrEnq;
+      const appointments = enquiries * cvrBook;
+      const footfall = appointments * showUp;
+      const ipd = footfall * ipdRate;
+
+      const cpc = clicks > 0 ? (budget / clicks).toFixed(2) : 0;
+      const cpl = enquiries > 0 ? (budget / enquiries).toFixed(2) : 0;
+      const cac = footfall > 0 ? (budget / footfall).toFixed(2) : 0;
+
+      const opdRev = footfall * userConfig.opdRev;
+      const ipdRev = ipd * userConfig.ipdRev;
+      const totalRev = opdRev + ipdRev;
+      const roas = budget > 0 ? (totalRev / budget).toFixed(1) : 0;
+
+      // Update KPI cards
+      document.getElementById('kpi-budget').textContent = '₹' + fmtNum(budget);
+      document.getElementById('kpi-impressions').textContent = fmtNum(impressions);
+      document.getElementById('kpi-enquiries').textContent = fmtNum(enquiries);
+      document.getElementById('kpi-cpl').textContent = '₹' + cpl;
+      document.getElementById('kpi-cpc').textContent = 'CPC: ₹' + cpc;
+      document.getElementById('kpi-cvr-enq').textContent = (cvrEnq * 100).toFixed(1) + '% CVR';
+      document.getElementById('kpi-footfall').textContent = fmtNum(footfall);
+      document.getElementById('kpi-cac').textContent = 'CAC: ₹' + cac + ' / patient';
+      document.getElementById('kpi-revenue').textContent = '₹' + (totalRev / 100000).toFixed(2) + 'L';
+      document.getElementById('kpi-roas').textContent = roas + 'x';
+
+      // Update Funnel Pipeline
+      document.getElementById('f-impressions').textContent = fmtNum(impressions);
+      document.getElementById('f-cpm-lbl').textContent = 'CPM: ₹' + Math.round(cpm);
+      document.getElementById('f-ctr').textContent = (ctr * 100).toFixed(2) + '%';
+      document.getElementById('f-clicks').textContent = fmtNum(clicks);
+      document.getElementById('f-cpc').textContent = 'CPC: ₹' + cpc;
+      document.getElementById('f-cvrEnq').textContent = (cvrEnq * 100).toFixed(2) + '%';
+      document.getElementById('f-enquiries').textContent = fmtNum(enquiries);
+      document.getElementById('f-cpl').textContent = 'CPL: ₹' + cpl;
+      document.getElementById('f-cvrBook').textContent = (cvrBook * 100).toFixed(1) + '%';
+      document.getElementById('f-footfall').textContent = fmtNum(footfall) + ' Patients';
+      document.getElementById('f-cac').textContent = 'CAC: ₹' + cac;
+
+      renderSensitivityTable(budget);
+    }
+
+    function renderSensitivityTable(budget) {
+      const tbody = document.getElementById('sensitivityTableBody');
+      tbody.innerHTML = '';
+
+      const scList = [
+        { name: "Conservative", mult: 0.75, cpmM: 1.12, bookM: 0.82, showM: 0.92, ipdM: 0.78 },
+        { name: "★ Base (Expected)", mult: 1.0, cpmM: 1.0, bookM: 1.0, showM: 1.0, ipdM: 1.0 },
+        { name: "Optimistic", mult: 1.35, cpmM: 0.88, bookM: 1.18, showM: 1.08, ipdM: 1.25 }
+      ];
+
+      scList.forEach(s => {
+        const cpm = userConfig.cpm * s.cpmM;
+        const ctr = (userConfig.ctr / 100) * s.mult;
+        const cvrEnq = (userConfig.cvrEnq / 100) * s.mult;
+        const cvrBook = (userConfig.cvrBook / 100) * s.bookM;
+        const showUp = (userConfig.showUp / 100) * s.showM;
+        const ipdRate = (userConfig.ipdRate / 100) * s.ipdM;
+
+        const imp = (budget / cpm) * 1000;
+        const clk = imp * ctr;
+        const enq = clk * cvrEnq;
+        const app = enq * cvrBook;
+        const foot = app * showUp;
+        const ipd = foot * ipdRate;
+
+        const cpl = enq > 0 ? (budget / enq).toFixed(2) : 0;
+        const cac = foot > 0 ? (budget / foot).toFixed(2) : 0;
+        const totalRev = (foot * userConfig.opdRev) + (ipd * userConfig.ipdRev);
+        const roas = (totalRev / budget).toFixed(2);
+        const qNet = (totalRev * 3) - (budget * 3);
+
+        const isBase = s.name.includes("Base");
+        const tr = document.createElement('tr');
+        tr.className = isBase ? "bg-teal-500/5 hover:bg-teal-500/10 font-semibold" : "hover:bg-[var(--background)] transition";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 ${isBase ? 'text-teal-600 dark:text-teal-400 font-bold' : 'font-medium'}">${s.name}</td>
+          <td class="py-2.5 px-3 font-mono">${fmtNum(clk)}</td>
+          <td class="py-2.5 px-3 font-mono">${fmtNum(enq)}</td>
+          <td class="py-2.5 px-3 font-mono ${isBase ? 'text-emerald-600' : ''}">₹${cpl}</td>
+          <td class="py-2.5 px-3 font-mono">${fmtNum(app)}</td>
+          <td class="py-2.5 px-3 font-mono font-bold ${isBase ? 'text-teal-600 dark:text-teal-400' : ''}">${fmtNum(foot)}</td>
+          <td class="py-2.5 px-3 font-mono">₹${cac}</td>
+          <td class="py-2.5 px-3 font-mono">${ipd.toFixed(1)}</td>
+          <td class="py-2.5 px-3 font-mono font-bold">₹${fmtNum(totalRev)}</td>
+          <td class="py-2.5 px-3 font-mono font-extrabold text-emerald-600">${roas}x</td>
+          <td class="py-2.5 px-3 font-mono font-bold text-emerald-600">₹${fmtNum(qNet)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('mainBudgetSlider').addEventListener('input', recalcMain);
+    document.getElementById('channelSplitSlider').addEventListener('input', recalcMain);
+
+    // Meta Insights Raw Data & User Logged Posts
+    const DEFAULT_POSTS = [
+      { id: 1, date: "2026-10-12", type: "Carousel", reach: 4500, likes: 240, comments: 32, saves: 110, shares: 45 },
+      { id: 2, date: "2026-10-14", type: "Reel", reach: 12800, likes: 850, comments: 95, saves: 310, shares: 210 },
+      { id: 3, date: "2026-10-16", type: "Image", reach: 3200, likes: 120, comments: 14, saves: 35, shares: 12 },
+      { id: 4, date: "2026-10-19", type: "Reel", reach: 18400, likes: 1320, comments: 145, saves: 540, shares: 430 },
+      { id: 5, date: "2026-10-21", type: "Carousel", reach: 5600, likes: 310, comments: 48, saves: 180, shares: 75 },
+      { id: 6, date: "2026-10-23", type: "Image", reach: 2900, likes: 95, comments: 8, saves: 22, shares: 9 },
+      { id: 7, date: "2026-10-27", type: "Reel", reach: 15100, likes: 990, comments: 112, saves: 420, shares: 310 },
+      { id: 8, date: "2026-10-29", type: "Carousel", reach: 6100, likes: 380, comments: 55, saves: 210, shares: 92 },
+      { id: 9, date: "2026-10-31", type: "Image", reach: 3800, likes: 160, comments: 21, saves: 48, shares: 18 },
+      { id: 10, date: "2026-11-03", type: "Reel", reach: 21500, likes: 1650, comments: 210, saves: 680, shares: 590 },
+      { id: 11, date: "2026-11-05", type: "Carousel", reach: 7200, likes: 440, comments: 62, saves: 260, shares: 115 },
+      { id: 12, date: "2026-11-07", type: "Image", reach: 3400, likes: 130, comments: 16, saves: 40, shares: 14 }
+    ];
+
+    let postList = [...DEFAULT_POSTS];
+
+    function loadPosts() {
+      const saved = localStorage.getItem('carepoint_custom_posts');
+      if (saved) {
+        try {
+          postList = JSON.parse(saved);
+        } catch (e) {
+          postList = [...DEFAULT_POSTS];
+        }
+      }
+      updatePostAggregates();
+      renderTable('All');
+    }
+
+    function updatePostAggregates() {
+      ['Reel', 'Carousel', 'Image'].forEach(type => {
+        const matching = postList.filter(p => p.type === type);
+        const count = matching.length;
+        const totalReach = matching.reduce((acc, p) => acc + p.reach, 0);
+        const avgEng = count > 0 
+          ? (matching.reduce((acc, p) => acc + ((p.likes + p.comments + p.saves + p.shares) / p.reach * 100), 0) / count).toFixed(2)
+          : 0;
+
+        if (type === 'Reel') {
+          document.getElementById('stat-reels-reach').textContent = fmtNum(totalReach);
+          document.getElementById('stat-reels-eng').textContent = avgEng + '% Eng. Rate';
+          document.getElementById('stat-reels-count').textContent = count + ' Reels published';
+        } else if (type === 'Carousel') {
+          document.getElementById('stat-carousels-reach').textContent = fmtNum(totalReach);
+          document.getElementById('stat-carousels-eng').textContent = avgEng + '% Eng. Rate';
+          document.getElementById('stat-carousels-count').textContent = count + ' Carousels published';
+        } else {
+          document.getElementById('stat-images-reach').textContent = fmtNum(totalReach);
+          document.getElementById('stat-images-eng').textContent = avgEng + '% Eng. Rate';
+          document.getElementById('stat-images-count').textContent = count + ' Images published';
+        }
+      });
+    }
+
+    function renderTable(filterType) {
+      const tbody = document.getElementById('postsTableBody');
+      tbody.innerHTML = '';
+
+      const filtered = filterType === 'All' ? postList : postList.filter(p => p.type === filterType);
+      filtered.forEach(p => {
+        const eng = p.likes + p.comments + p.saves + p.shares;
+        const rate = ((eng / p.reach) * 100).toFixed(2);
+        const typeBadge = p.type === 'Reel' 
+          ? '<span class="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/15 text-purple-600 dark:text-purple-400 font-sans font-bold">Reel</span>'
+          : p.type === 'Carousel'
+          ? '<span class="px-1.5 py-0.5 rounded text-[10px] bg-blue-500/15 text-blue-600 dark:text-blue-400 font-sans font-bold">Carousel</span>'
+          : '<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-500/15 text-slate-600 dark:text-slate-400 font-sans font-bold">Image</span>';
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-[var(--background)] transition";
+        tr.innerHTML = `
+          <td class="py-2 px-3 font-sans">${p.date}</td>
+          <td class="py-2 px-3">${typeBadge}</td>
+          <td class="py-2 px-3 font-semibold">${fmtNum(p.reach)}</td>
+          <td class="py-2 px-3">${fmtNum(p.likes)}</td>
+          <td class="py-2 px-3">${fmtNum(p.comments)}</td>
+          <td class="py-2 px-3">${fmtNum(p.saves)}</td>
+          <td class="py-2 px-3">${fmtNum(p.shares)}</td>
+          <td class="py-2 px-3 font-semibold">${fmtNum(eng)}</td>
+          <td class="py-2 px-3 font-bold ${rate > 10 ? 'text-emerald-600 dark:text-emerald-400' : 'text-teal-600 dark:text-teal-400'}">${rate}%</td>
+          <td class="py-2 px-3 text-right">
+            <button onclick="deletePost(${p.id})" class="text-red-500 hover:text-red-700 text-xs font-bold" title="Delete post">✕</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterPosts(type) {
+      ['All', 'Reel', 'Carousel', 'Image'].forEach(t => {
+        const btn = document.getElementById('fbtn-' + t);
+        if (t === type) {
+          btn.className = "px-2.5 py-1 rounded bg-teal-600 text-white font-medium";
+        } else {
+          btn.className = "px-2.5 py-1 rounded border border-[var(--card-border)] hover:bg-[var(--card-border)] text-[var(--foreground)]";
+        }
+      });
+      renderTable(type);
+    }
+
+    function openNewPostModal() {
+      document.getElementById('npDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('newPostModal').classList.remove('hidden');
+    }
+
+    function closeNewPostModal() {
+      document.getElementById('newPostModal').classList.add('hidden');
+    }
+
+    function saveNewPost() {
+      const newPost = {
+        id: Date.now(),
+        date: document.getElementById('npDate').value || new Date().toISOString().split('T')[0],
+        type: document.getElementById('npType').value,
+        reach: parseInt(document.getElementById('npReach').value) || 1000,
+        likes: parseInt(document.getElementById('npLikes').value) || 0,
+        comments: parseInt(document.getElementById('npComments').value) || 0,
+        saves: parseInt(document.getElementById('npSaves').value) || 0,
+        shares: parseInt(document.getElementById('npShares').value) || 0
+      };
+
+      postList.unshift(newPost);
+      localStorage.setItem('carepoint_custom_posts', JSON.stringify(postList));
+      updatePostAggregates();
+      renderTable('All');
+      closeNewPostModal();
+    }
+
+    function deletePost(id) {
+      if (!confirm("Are you sure you want to remove this post record?")) return;
+      postList = postList.filter(p => p.id !== id);
+      localStorage.setItem('carepoint_custom_posts', JSON.stringify(postList));
+      updatePostAggregates();
+      renderTable('All');
+    }
+
+    // Google Business Profile Checklist with persistence
+    const GBP_ITEMS = [
+      { id: "gbp-nap", title: "1. NAP Uniformity Across Web", desc: "Identical name: 'CarePoint Hospital Jaipur — 24x7 Emergency & Multi-Speciality', JLN Marg, Malviya Nagar across all directories." },
+      { id: "gbp-cat", title: "2. Primary & Secondary Category Taxonomy", desc: "Primary: General Hospital. Secondary: Emergency Room, Heart Hospital, Orthopedic Clinic, Pediatric Hospital, Maternity Clinic." },
+      { id: "gbp-hrs", title: "3. Operating Hours & 24x7 Emergency Tag", desc: "Emergency open 24 Hours. Regular OPD: Mon-Sat 8 AM - 8 PM; Sunday Speciality: 9 AM - 1 PM." },
+      { id: "gbp-link", title: "4. Direct Appointment Link & WhatsApp UTM", desc: "Direct URL attribute to `#appointment-form` with custom UTM source tracking for Google Local 3-Pack attribution." },
+      { id: "gbp-photos", title: "5. 50+ Geo-Tagged Photography Assets", desc: "Exterior Gate 1 ramp, Cath lab, Level-3 NICU, private suites, and AIIMS doctor headshots with stethoscopes." },
+      { id: "gbp-sms", title: "6. Automated Post-Discharge SMS Review Flow", desc: "Automated SMS sent 2 hours post-consultation to collect genuine 5-star Google reviews from satisfied patients." }
+    ];
+
+    function loadGBP() {
+      const container = document.getElementById('gbpContainer');
+      container.innerHTML = '';
+      const savedChecks = JSON.parse(localStorage.getItem('carepoint_gbp_checks') || '{}');
+
+      let completedCount = 0;
+      GBP_ITEMS.forEach(item => {
+        const isChecked = savedChecks[item.id] !== undefined ? savedChecks[item.id] : true;
+        if (isChecked) completedCount++;
+
+        const div = document.createElement('div');
+        div.className = "p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] space-y-1";
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="${item.id}" ${isChecked ? 'checked' : ''} onchange="toggleGBP('${item.id}')"
+                   class="w-4 h-4 rounded text-teal-600 accent-teal-600 cursor-pointer">
+            <label for="${item.id}" class="font-bold cursor-pointer text-[var(--foreground)]">${item.title}</label>
+          </div>
+          <p class="text-[var(--muted-foreground)] pl-6">${item.desc}</p>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('gbpCounter').textContent = completedCount + " / " + GBP_ITEMS.length + " Completed";
+    }
+
+    function toggleGBP(id) {
+      const savedChecks = JSON.parse(localStorage.getItem('carepoint_gbp_checks') || '{}');
+      const isChecked = document.getElementById(id).checked;
+      savedChecks[id] = isChecked;
+      localStorage.setItem('carepoint_gbp_checks', JSON.stringify(savedChecks));
+      
+      const count = Object.values(savedChecks).filter(Boolean).length;
+      document.getElementById('gbpCounter').textContent = count + " / " + GBP_ITEMS.length + " Completed";
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('carepoint_theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
+    }
+
+    function updateThemeButton() {
+      const btn = document.getElementById('btnTheme');
+      const text = document.getElementById('btnThemeText');
+      if (!btn) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      btn.firstElementChild.textContent = isDark ? '☀️' : '🌙';
+      if (text) text.textContent = isDark ? 'Light' : 'Dark';
+      btn.title = isDark ? "Switch to Crisp Light Theme" : "Switch to Dark Theme";
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('carepoint_theme');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      updateThemeButton();
+    })();
+
+    // Initialize Dashboard
+    loadConfig();
+    loadPosts();
+    loadGBP();
+  </script>
+</body>
+</html>
