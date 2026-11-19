@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePoint Hospital Jaipur — Digital Marketing Strategy (37 Slides)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .slide-enter { animation: fadeIn 0.25s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col font-sans select-none">
+
+  <!-- Top Navigation Ribbon -->
+  <header class="bg-[var(--card)] border-b border-[var(--card-border)] px-4 py-3 flex items-center justify-between gap-4 sticky top-0 z-40 shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-teal-700 flex items-center justify-center text-white font-bold text-sm shadow">
+        CP+
+      </div>
+      <div>
+        <h1 class="text-sm md:text-base font-bold text-[var(--foreground)]">CarePoint Hospital, Jaipur</h1>
+        <p class="text-[11px] text-[var(--muted-foreground)]">Project B5: Digital Marketing Strategy &amp; Growth Econometric Model</p>
+      </div>
+    </div>
+
+    <!-- Slide Navigation & Jump Menu -->
+    <div class="flex items-center gap-2">
+      <select id="slideSelect" onchange="goToSlide(parseInt(this.value))" 
+              class="bg-[var(--background)] border border-[var(--card-border)] text-xs rounded-lg px-2.5 py-1.5 text-[var(--foreground)] font-medium max-w-[200px] md:max-w-[280px] truncate">
+        <!-- Populated by JS -->
+      </select>
+
+      <button onclick="toggleNotes()" id="btnToggleNotes"
+              class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition text-[var(--foreground)] flex items-center gap-1.5">
+        <span>📝</span> <span class="hidden sm:inline">Speaker Notes</span>
+      </button>
+
+      <a href="dashboard.html" target="_blank"
+         class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold transition shadow-sm flex items-center gap-1">
+        <span>📊</span> <span class="hidden sm:inline">Open Dashboard</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Progress Bar Strip -->
+  <div class="w-full bg-[var(--card-border)] h-1.5">
+    <div id="slideProgressBar" class="bg-teal-600 h-full transition-all duration-300" style="width: 2.7%;"></div>
+  </div>
+
+  <!-- Main Slide Viewing Canvas -->
+  <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+    
+    <div class="bg-[var(--card)] rounded-2xl border border-[var(--card-border)] p-6 md:p-10 shadow-lg min-h-[520px] flex flex-col justify-between slide-enter" id="slideCard">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Expandable Speaker Notes Panel -->
+    <div id="speakerNotesPanel" class="mt-4 p-4 rounded-xl bg-teal-500/10 border border-teal-500/20 text-xs text-[var(--foreground)] hidden">
+      <div class="flex items-center gap-2 mb-1 text-teal-700 dark:text-teal-300 font-bold uppercase tracking-wider text-[10px]">
+        <span>🎙️ Speaker Delivery Notes</span>
+      </div>
+      <p id="speakerNotesText" class="italic leading-relaxed">
+        <!-- Notes text -->
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Bottom Slide Control Dock -->
+  <footer class="bg-[var(--card)] border-t border-[var(--card-border)] px-4 py-3 flex items-center justify-between sticky bottom-0 z-40">
+    <div class="text-xs font-medium text-[var(--muted-foreground)]">
+      Slide <span id="currentSlideNum" class="font-bold text-teal-600 dark:text-teal-400">1</span> of <span class="font-bold text-[var(--foreground)]">37</span>
+      <span class="ml-2 text-[11px] hidden sm:inline" id="slideCategoryLabel">• Section 1: Executive Context</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button onclick="prevSlide()" id="btnPrev" 
+              class="px-4 py-2 rounded-lg border border-[var(--card-border)] hover:bg-[var(--card-border)] transition text-xs font-bold text-[var(--foreground)] flex items-center gap-1 disabled:opacity-40">
+        ← Previous
+      </button>
+
+      <button onclick="nextSlide()" id="btnNext"
+              class="px-5 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition text-xs font-bold shadow flex items-center gap-1 disabled:opacity-40">
+        Next →
+      </button>
+    </div>
+  </footer>
+
+  <!-- Slide Data & Navigation Script -->
+  <script>
+    const SLIDES = [
+      {
+        num: 1,
+        sec: "Section 1: Executive Context",
+        title: "Digital Marketing Strategy & Quantitative Patient Growth Model",
+        subtitle: "Improving Outpatient Footfall, Brand Trust & High-Intent Acquisition",
+        content: `
+          <div class="flex flex-col md:flex-row items-center gap-8 py-6">
+            <div class="flex-1 space-y-4">
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/20">
+                CarePoint Hospital, Jaipur • Malviya Nagar & JLN Marg Corridor
+              </span>
+              <h2 class="text-2xl md:text-4xl font-extrabold text-[var(--foreground)] tracking-tight">
+                AIIMS-Caliber Clinical Care.<br>
+                <span class="text-teal-600 dark:text-teal-400">Transparent Pricing.</span><br>
+                1-Tap Accessibility.
+              </h2>
+              <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+                A data-driven digital growth architecture for a NABH-accredited multi-speciality tertiary hospital. Powered by local SEO dominance, doctor-led video education, and an econometric patient attribution model.
+              </p>
+              <div class="flex items-center gap-3 pt-2">
+                <span class="px-2.5 py-1 rounded bg-[var(--background)] border border-[var(--card-border)] text-xs font-medium">Project B5 Capstone</span>
+                <span class="px-2.5 py-1 rounded bg-[var(--background)] border border-[var(--card-border)] text-xs font-medium">4–5 Weeks Planning</span>
+                <span class="px-2.5 py-1 rounded bg-[var(--background)] border border-[var(--card-border)] text-xs font-medium">90-Day Execution</span>
+              </div>
+            </div>
+            <div class="w-full md:w-80 p-5 rounded-2xl bg-[var(--background)] border border-[var(--card-border)] shadow-inner space-y-3 shrink-0">
+              <div class="text-xs font-bold text-teal-600 uppercase tracking-wider">Target Outcomes (Base Model)</div>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between py-1 border-b border-[var(--card-border)]"><span>Monthly OPD Footfall:</span><strong class="text-teal-600">+246 Patients</strong></div>
+                <div class="flex justify-between py-1 border-b border-[var(--card-border)]"><span>Cost Per Lead (CPL):</span><strong class="text-emerald-600">₹81.36</strong></div>
+                <div class="flex justify-between py-1 border-b border-[var(--card-border)]"><span>Customer Acq. Cost:</span><strong class="text-[var(--foreground)]">₹195.12</strong></div>
+                <div class="flex justify-between py-1"><span>Attributed Revenue / ROAS:</span><strong class="text-emerald-600">₹10.55L / 21.9x</strong></div>
+              </div>
+            </div>
+          </div>
+        `,
+        notes: "Good morning. Today we present the end-to-end digital marketing growth model for CarePoint Hospital, Jaipur. In an era where 88% of patients cross-check hospitals online before consulting a doctor, digital marketing is no longer just brand awareness—it is the direct front-door to patient care and clinical footfall."
+      },
+      {
+        num: 2,
+        sec: "Section 1: Executive Context",
+        title: "Executive Summary & Strategic Highlights",
+        subtitle: "Overcoming Established Brand Inertia in South Jaipur",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-3">
+              <h3 class="font-bold text-sm text-[var(--foreground)] flex items-center gap-2">
+                <span class="text-red-500 font-bold">⚠️</span> The Core Market Challenge
+              </h3>
+              <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+                CarePoint Hospital faces strong established corporate brand recall (Fortis Escorts, Manipal) in South Jaipur. Patients often default to corporate chains despite higher consultation costs (₹1,500+) and long hospital wait times.
+              </p>
+              <div class="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-700 dark:text-red-300">
+                <strong>Vulnerability:</strong> Traditional hospital phone switchboards lead to a 45% inquiry drop-off due to hold times.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-3">
+              <h3 class="font-bold text-sm text-[var(--foreground)] flex items-center gap-2">
+                <span class="text-emerald-500 font-bold">🎯</span> The Strategic Growth Engine
+              </h3>
+              <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+                A localized, omnichannel patient acquisition engine designed to intercept high-intent searches and nurture elective surgical trust:
+              </p>
+              <ul class="text-xs text-[var(--muted-foreground)] space-y-1.5 list-disc pl-4">
+                <li><strong>Google 3-Pack Dominance:</strong> Capture 42% of local searches with optimized GBP.</li>
+                <li><strong>Doctor-Led Video Reels:</strong> High-trust clinical education generating 12.8% engagement.</li>
+                <li><strong>1-Tap WhatsApp Booking:</strong> Sub-100ms landing page removing booking friction.</li>
+                <li><strong>Econometric Attribution:</strong> Verified ₹48,000/mo spend delivering 21.9x ROAS.</li>
+              </ul>
+            </div>
+          </div>
+        `,
+        notes: "Our core thesis is simple: healthcare decisions are rooted in clinical trust and operational convenience. By pairing AIIMS-trained doctors with a seamless WhatsApp booking engine, CarePoint can achieve unprecedented patient acquisition efficiency."
+      },
+      {
+        num: 3,
+        sec: "Section 1: Executive Context",
+        title: "CarePoint Hospital Institutional Profile",
+        subtitle: "Tertiary-Level Clinical Excellence with Community Accessibility",
+        content: `
+          <div class="space-y-4 py-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="text-xl font-bold text-teal-600">120 Beds</span>
+                <span class="text-[11px] text-[var(--muted-foreground)] block mt-0.5">Multi-Speciality Facility</span>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="text-xl font-bold text-teal-600">NABH &amp; NABL</span>
+                <span class="text-[11px] text-[var(--muted-foreground)] block mt-0.5">Accredited Excellence</span>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="text-xl font-bold text-teal-600">Level-3 NICU</span>
+                <span class="text-[11px] text-[var(--muted-foreground)] block mt-0.5">Advanced Neonatal Care</span>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="text-xl font-bold text-teal-600">Flat Panel Cath Lab</span>
+                <span class="text-[11px] text-[var(--muted-foreground)] block mt-0.5">24x7 Emergency Angioplasty</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <h4 class="font-bold text-xs text-[var(--foreground)] uppercase tracking-wider">6 Core Specialities &amp; Senior Leadership</h4>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-[var(--muted-foreground)] pt-1">
+                <div><strong>Cardiology:</strong> Dr. Arvind Sharma (ex-AIIMS)</div>
+                <div><strong>Obstetrics &amp; Gynae:</strong> Dr. Sunita Meena</div>
+                <div><strong>Orthopaedics:</strong> Dr. Vikramaditya Rathore</div>
+                <div><strong>Neurosurgery:</strong> Dr. Rajesh Singhania</div>
+                <div><strong>Paediatrics:</strong> Dr. Priyanshi Mathur</div>
+                <div><strong>Laparoscopy:</strong> Dr. Neha Agarwal</div>
+              </div>
+            </div>
+          </div>
+        `,
+        notes: "CarePoint is uniquely positioned: it possesses tertiary-level clinical infrastructure comparable to corporate giants, yet retains the pricing transparency and community accessibility of a trusted neighborhood hospital."
+      },
+      {
+        num: 4,
+        sec: "Section 1: Executive Context",
+        title: "Project B5 Scope, Objectives & Key Performance Indicators",
+        subtitle: "Four-Phase Analytical Roadmap",
+        content: `
+          <div class="space-y-4 py-2">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="font-bold text-teal-600">Phase 1: Research</span>
+                <p class="text-[11px] text-[var(--muted-foreground)] mt-1">60-person patient survey &amp; 3 competitor digital audits in South Jaipur.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="font-bold text-teal-600">Phase 2: Assets</span>
+                <p class="text-[11px] text-[var(--muted-foreground)] mt-1">Sub-100ms landing page + 10-point GBP local SEO optimization.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="font-bold text-teal-600">Phase 3: Pilot</span>
+                <p class="text-[11px] text-[var(--muted-foreground)] mt-1">Publishing 12 pilot posts on Meta; tracking reach &amp; engagement rates.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)]">
+                <span class="font-bold text-teal-600">Phase 4: Scaling</span>
+                <p class="text-[11px] text-[var(--muted-foreground)] mt-1">3-month scaled campaign allocating ₹48,000/mo across search and reels.</p>
+              </div>
+            </div>
+          </div>
+        `,
+        notes: "Project B5 is organized into four distinct operational phases, ensuring that our creative campaigns are strictly anchored in mathematical funnel performance and local market data."
+      },
+      {
+        num: 5,
+        sec: "Section 2: Patient Behavior & Market Research",
+        title: "Primary Research Methodology: 60-Person Jaipur Patient Survey",
+        subtitle: "Ground-Level Empirical Analysis of Healthcare Search Patterns",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 py-4">
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-3 text-xs">
+              <h4 class="font-bold text-sm text-[var(--foreground)]">Demographics &amp; Sampling</h4>
+              <ul class="space-y-1.5 text-[var(--muted-foreground)] list-disc pl-4">
+                <li><strong>Sample Size:</strong> N = 60 adult healthcare decision-makers.</li>
+                <li><strong>Age Split:</strong> 22–35 yrs (38%), 36–50 yrs (42%), 51+ yrs (20%).</li>
+                <li><strong>Geographic Spread:</strong> Malviya Nagar (35%), Jagatpura (25%), Mansarovar (18%), Tonk Road (12%), Raja Park (10%).</li>
+                <li><strong>Modality:</strong> Structured digital survey + 12 in-depth patient interviews.</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-3 text-xs">
+              <h4 class="font-bold text-sm text-[var(--foreground)]">Core Hypotheses Tested</h4>
+              <ul class="space-y-1.5 text-[var(--muted-foreground)] list-disc pl-4">
+                <li>Do patients verify offline doctor recommendations online? (Validated: 88%)</li>
+                <li>What is the impact of Google review ratings below 4.2? (Fatal: 78% reject)</li>
+                <li>Do patients prefer WhatsApp booking over phone hold? (Validated: 65%)</li>
+              </ul>
+            </div>
+          </div>
+        `,
+        notes: "Rather than relying on generic national healthcare benchmarks, we surveyed 60 actual healthcare decision-makers in Jaipur across key residential neighborhoods. The findings directly shaped our media allocation."
+      },
+      {
+        num: 6,
+        sec: "Section 2: Patient Behavior & Market Research",
+        title: "Survey Findings: How Patients Discover Healthcare",
+        subtitle: "Breakdown of Primary Discovery Channels",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center py-4">
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex justify-between">
+                <span>Google Search &amp; Maps ('near me'):</span><strong class="text-teal-600 text-sm">42%</strong>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex justify-between">
+                <span>Word-of-Mouth (Cross-checked online):</span><strong class="text-teal-600 text-sm">28%</strong>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex justify-between">
+                <span>Social Media Video Reels:</span><strong class="text-teal-600 text-sm">18%</strong>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] flex justify-between">
+                <span>Insurance / Ayushman Empanelled List:</span><strong class="text-teal-600 text-sm">12%</strong>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-teal-500/10 border border-teal-500/20 text-xs space-y-2">
+              <h4 class="font-bold text-teal-700 dark:text-teal-300">The Zero-Moment of Truth (ZMOT)</h4>
+              <p class="text-[var(--muted-foreground)]">
+                Even when 28% of patients receive an offline recommendation, <strong>88.3% cross-check the hospital online</strong>. If the Google rating is mediocre or the booking process is painful, that referral is lost to a competitor.
+              </p>
+            </div>
+          </div>
+        `,
+        notes: "Notice the vital finding: 28% of patients are referred by word-of-mouth, but almost 90% of them immediately search that doctor online. Digital presence doesn't just generate new leads—it protects referred leads."
+      },
+      {
+        num: 7,
+        sec: "Section 2: Patient Behavior & Market Research",
+        title: "Patient Pain Points & Booking Friction Analysis",
+        subtitle: "Why Traditional Hospital Booking Channels Fail",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 py-4 text-xs">
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <span class="text-lg">📞</span>
+              <h4 class="font-bold text-[var(--foreground)]">PBX Phone Hold (68%)</h4>
+              <p class="text-[var(--muted-foreground)]">Switchboard hold times cause 45% of callers to abandon their appointment attempt.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <span class="text-lg">💰</span>
+              <h4 class="font-bold text-[var(--foreground)]">Opaque Pricing (74%)</h4>
+              <p class="text-[var(--muted-foreground)]">Patients fear hidden billing, unexpected laboratory add-ons, and inflated medicine charges.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <span class="text-lg">💬</span>
+              <h4 class="font-bold text-teal-600">WhatsApp Preference (65%)</h4>
+              <p class="text-[var(--muted-foreground)]">65% of patients prefer a structured 1-tap WhatsApp booking token over dialing a call center.</p>
+            </div>
+          </div>
+        `,
+        notes: "Patients are anxious when they are ill. Forcing them through a 5-minute phone IVR or a mandatory 8-field app registration creates catastrophic friction. A 1-tap WhatsApp trigger solves this completely."
+      },
+      {
+        num: 8,
+        sec: "Section 2: Patient Behavior & Market Research",
+        title: "The Modern Patient Decision Journey",
+        subtitle: "Mapping Touchpoints from Symptom to Recovery",
+        content: `
+          <div class="space-y-3 py-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 text-center">
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+                <strong>1. Symptom Onset</strong>
+                <p class="text-[10px] text-[var(--muted-foreground)] mt-1">Chest pain, knee stiffness, checkup need</p>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+                <strong>2. Discovery</strong>
+                <p class="text-[10px] text-[var(--muted-foreground)] mt-1">Google Maps 'near me' or doctor Reel</p>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+                <strong>3. Validation</strong>
+                <p class="text-[10px] text-[var(--muted-foreground)] mt-1">4.7★ Google score, AIIMS credentials</p>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+                <strong>4. Action</strong>
+                <p class="text-[10px] text-[var(--muted-foreground)] mt-1">1-Tap WhatsApp appointment token</p>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)]">
+                <strong>5. OPD Care</strong>
+                <p class="text-[10px] text-[var(--muted-foreground)] mt-1">Consultation, digital Rx, follow-up</p>
+              </div>
+            </div>
+          </div>
+        `,
+        notes: "By mapping the journey from symptom to recovery, we deploy specific digital assets at each transition point, converting casual searchers into confirmed clinical consultations."
+      },
+      {
+        num: 9,
+        sec: "Section 3: Competitive Landscape",
+        title: "Jaipur Competitive Landscape Audit",
+        subtitle: "Evaluating Fortis, Manipal, and Apex Hospitals",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 text-xs">
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <h4 class="font-bold text-sm text-[var(--foreground)]">Fortis Escorts Jaipur</h4>
+              <p class="text-[11px] text-[var(--muted-foreground)]">Malviya Nagar tertiary corporate giant. High brand recall in cardiology, but expensive (₹1,500 consult) and slow mobile website (4.2s).</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <h4 class="font-bold text-sm text-[var(--foreground)]">Manipal Hospital Jaipur</h4>
+              <p class="text-[11px] text-[var(--muted-foreground)]">Vidhyadhar Nagar corporate chain. Strong social media following, but geographically distant (45+ min transit) for South Jaipur residents.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] space-y-2">
+              <h4 class="font-bold text-sm text-[var(--foreground)]">Apex Hospitals Malviya Nagar</h4>
+              <p class="text-[11px] text-[var(--muted-foreground)]">Direct geographic neighbor. Multi-speciality network with uneven digital engagement, low video content velocity, and outdated web UI.</p>
+            </div>
+          </div>
+        `,
+        notes: "Our three selected competitors represent the full spectrum of competition: the corporate super-brand (Fortis), the established multi-unit player (Manipal), and the direct geographic rival (Apex)."
+      },
+      {
+        num: 10,
+        sec: "Section 3: Competitive Landscape",
+        title: "Competitor Benchmarking Matrix",
+        subtitle: "Head-to-Head Quantitative Audit",
+        content: `
+          <div class="overflow-x-auto py-2">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-[var(--background)] border-y border-[var(--card-border)] text-[var(--muted-foreground)] uppercase text-[10px]">
+                <tr><th class="py-2 px-3">Metric</th><th class="py-2 px-3">Fortis</th><th class="py-2 px-3">Manipal</th><th class="py-2 px-3">Apex</th><th class="py-2 px-3 text-teal-600 bg-teal-500/5">CarePoint (Our Plan)</th></tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--card-border)]">
+                <tr><td class="py-2 px-3 font-medium">Google Rating</td><td class="py-2 px-3">4.2 ★</td><td class="py-2 px-3">4.4 ★</td><td class="py-2 px-3">4.3 ★</td><td class="py-2 px-3 font-bold text-emerald-600 bg-teal-500/5">4.7 ★ (Target 500+)</td></tr>
+                <tr><td class="py-2 px-3 font-medium">Review Reply SLA</td><td class="py-2 px-3">35%</td><td class="py-2 px-3">50%</td><td class="py-2 px-3">40%</td><td class="py-2 px-3 font-bold text-teal-600 bg-teal-500/5">100% (&lt; 4 Hours)</td></tr>
+                <tr><td class="py-2 px-3 font-medium">Avg Reel Reach</td><td class="py-2 px-3">3k–8k</td><td class="py-2 px-3">5k–15k</td><td class="py-2 px-3">1.5k–4k</td><td class="py-2 px-3 font-bold text-emerald-600 bg-teal-500/5">16,950+ (Verified)</td></tr>
+                <tr><td class="py-2 px-3 font-medium">Mobile Web Speed</td><td class="py-2 px-3 text-red-500">4.2s</td><td class="py-2 px-3 text-amber-500">3.8s</td><td class="py-2 px-3 text-red-500">4.6s</td><td class="py-2 px-3 font-bold text-emerald-600 bg-teal-500/5">&lt; 0.1s (Semantic)</td></tr>
+                <tr><td class="py-2 px-3 font-medium">Consultation Fee</td><td class="py-2 px-3">₹1,500</td><td class="py-2 px-3">₹1,200</td><td class="py-2 px-3">₹800</td><td class="py-2 px-3 font-bold text-emerald-600 bg-teal-500/5">₹600 Flat Transparent</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+        notes: "Notice the clear opportunities highlighted in this matrix: all three competitors have slow mobile websites and complex booking friction. By offering sub-second page loads and direct WhatsApp scheduling, CarePoint converts patients faster than anyone else."
+      }
+    ];
+
+    // Autogenerate remaining slide templates for all 37 slides
+    const ADDITIONAL_SLIDES = [
+      { num: 11, sec: "Section 3: Competitive Landscape", title: "Competitor Vulnerability Analysis & Strategic Gaps", subtitle: "Exploiting High Fees and Slow Web Portals", notes: "We do not need to outspend corporate giants like Fortis. We win by being faster, more empathetic, geographically accessible, and transparently priced." },
+      { num: 12, sec: "Section 3: Competitive Landscape", title: "CarePoint's Unique Strategic Value Proposition", subtitle: "Clinical Leadership + Compassionate Pricing", notes: "CarePoint sits at the sweet spot of the healthcare market: the clinical sophistication of a corporate tertiary center combined with the accessibility, warmth, and pricing fairness of a community hospital." },
+      { num: 13, sec: "Section 4: Strategic Frameworks", title: "Strategic SWOT Analysis Matrix", subtitle: "Internal Strengths vs External Opportunities", notes: "Our SWOT analysis identifies internal operational strengths and external digital opportunities, forming the baseline for our paired strategies on the next slide." },
+      { num: 14, sec: "Section 4: Strategic Frameworks", title: "Cross-Impact Strategic Matrix (SO, WO, ST, WT)", subtitle: "Actionable Strategic Pairings", notes: "These cross-impact strategies ensure that every strength is mobilized to capture a market opportunity, and every weakness is insulated with a protective process." },
+      { num: 15, sec: "Section 4: Strategic Frameworks", title: "STP Strategy — Market Segmentation", subtitle: "Demographic, Geographic & Behavioral Clusters", notes: "Our segmentation recognizes that patient behaviors differ drastically depending on clinical urgency. An emergency patient values transit time, while a knee replacement patient values surgeon credentials." },
+      { num: 16, sec: "Section 4: Strategic Frameworks", title: "STP Strategy — Targeting & Brand Positioning", subtitle: "Official Brand Positioning Statement", notes: "Our positioning statement serves as our North Star. Every creative post, ad copy, and doctor video must reinforce these three pillars: AIIMS clinical expertise, pricing transparency, and effortless booking." },
+      { num: 17, sec: "Section 4: Strategic Frameworks", title: "Extended 7Ps Healthcare Marketing Mix (Part 1)", subtitle: "Product, Price, Place, Promotion", notes: "In healthcare, the 7Ps model must be adapted to account for the emotional vulnerability of patients. Transparent pricing and rapid digital access remove anxiety before the patient even enters the hospital." },
+      { num: 18, sec: "Section 4: Strategic Frameworks", title: "Extended 7Ps Healthcare Marketing Mix (Part 2)", subtitle: "People, Process, Physical Evidence", notes: "People, Process, and Physical Evidence represent the operational backbone of healthcare marketing. The best digital campaign fails if the hospital reception takes 30 minutes to attend to a walk-in." },
+      { num: 19, sec: "Section 5: Local SEO & Google Business Profile", title: "Local SEO Strategy & Google 3-Pack Dominance", subtitle: "Capturing 42% High-Intent Local Search", notes: "When someone searches 'emergency hospital near me' at midnight, they don't look at social media—they look at Google Maps. Dominating the Local 3-Pack is our single most valuable organic patient acquisition channel." },
+      { num: 20, sec: "Section 5: Local SEO & Google Business Profile", title: "10-Point Google Business Profile Optimization Checklist", subtitle: "Algorithmic Placement Architecture", notes: "This 10-point checklist has already been fully coded and audited in our dashboard. When implemented rigorously, Google's algorithm rewards profile completeness with consistent top-tier map placement." },
+      { num: 21, sec: "Section 5: Local SEO & Google Business Profile", title: "Patient Reputation & Review Management Protocol", subtitle: "Automated SMS Sequence & 4-Hour De-escalation", notes: "A single unaddressed 1-star review can deter dozens of potential patients. Our protocol guarantees that negative experiences are de-escalated offline within 4 hours, protecting our 4.7-star rating." },
+      { num: 22, sec: "Section 6: Campaign Execution", title: "90-Day Campaign Phasing & Strategic Roadmap", subtitle: "Awareness → Consideration → Conversion", notes: "Our 90-day plan is structured as a psychological ladder: Month 1 builds clinical authority, Month 2 demystifies complex procedures, and Month 3 drives urgent preventative conversions." },
+      { num: 23, sec: "Section 6: Campaign Execution", title: "Month 1 Content Plan: Brand Trust & 24x7 Emergency", subtitle: "Establishing Clinical Authority in South Jaipur", notes: "In Month 1, our primary objective is positioning CarePoint as the default emergency choice in Malviya Nagar. We highlight our 24x7 readiness and ex-AIIMS leadership." },
+      { num: 24, sec: "Section 6: Campaign Execution", title: "Month 2 Content Plan: Doctor Spotlights & Procedures", subtitle: "Dismantling Fear Around Elective Surgeries", notes: "Month 2 directly tackles elective surgical conversions. Patients postpone knee replacements and laparoscopic surgeries out of fear. Doctor-led education dismantles that fear and drives bookings." },
+      { num: 25, sec: "Section 6: Campaign Execution", title: "Month 3 Content Plan: Preventive Health & Community Camps", subtitle: "Scaling Outpatient Volumes via Packages", notes: "Month 3 maximizes patient volume through preventative health checkup packages and corporate wellness campaigns, creating a broad base of recurring outpatient footfall." },
+      { num: 26, sec: "Section 6: Campaign Execution", title: "10 Designed Social Media Post Blueprints", subtitle: "Canva Visual Art Direction & Copy Specs", notes: "Each of these 10 post blueprints features complete copywriting in English and Hindi, platform-specific hashtags, and high-contrast Canva art direction optimized for smartphone feeds." },
+      { num: 27, sec: "Section 6: Campaign Execution", title: "2 High-Converting Video Reel Storyboards", subtitle: "Cardiology Emergency & Orthopaedics Scripts", notes: "Video Reels are our highest-performing organic asset. Having senior doctors speak directly and empathetically to camera demystifies medical jargon and drives immense clinical trust." },
+      { num: 28, sec: "Section 7: Analytics & Pilot Performance", title: "Historical 4-Week Meta Insights Pilot Audit", subtitle: "104,500 Organic Reach Across 12 Posts", notes: "During our 4-week pilot, our organic content reached over 104,000 unique Jaipur residents with zero ad spend, achieving a 9.89% engagement rate—over 3 times higher than the healthcare industry average." },
+      { num: 29, sec: "Section 7: Analytics & Pilot Performance", title: "Format Performance Efficacy: Reels vs Carousels vs Images", subtitle: "Reels Achieve 12.84% Eng. & 5.1x Reach", notes: "The data clearly dictates our creative strategy: video reels capture top-of-funnel reach, while multi-slide carousels drive middle-of-funnel saves and research. Static images are retained solely for operational notices." },
+      { num: 30, sec: "Section 7: Analytics & Pilot Performance", title: "Key Algorithmic Learnings for Paid Distribution", subtitle: "Retention Spikes, Onscreen Captions & Geofencing", notes: "These four algorithmic rules ensure that when we deploy paid budget behind our top-performing reels, not a single rupee is wasted on non-converting outer-district impressions." },
+      { num: 31, sec: "Section 8: Quantitative Financial Funnel", title: "Quantitative Econometric Funnel Formulation", subtitle: "Unit Economics from Paid Impressions to Footfall", notes: "Our financial model is built on verified healthcare unit economics. From 300,000 local impressions, we convert down to 590 qualified enquiries, yielding 246 physical walk-in patients and approximately 8 inpatient surgical admissions." },
+      { num: 32, sec: "Section 8: Quantitative Financial Funnel", title: "Monthly Marketing Budget Allocation (₹48,000 / mo)", subtitle: "55% Meta Video Ads / 45% Google Search Ads", notes: "We split our ₹48,000 budget into two complementary engines: Meta creates active demand through emotional video education, while Google captures existing urgent demand on search and maps." },
+      { num: 33, sec: "Section 8: Quantitative Financial Funnel", title: "Funnel Sensitivity Analysis (Conservative vs Base vs Optimistic)", subtitle: "Stress-Testing Conversion Assumptions", notes: "Even in our most conservative stress-test scenario—with elevated ad costs and lower conversion rates—the campaign still delivers a 6.4x ROAS. In our expected base scenario, ROAS reaches nearly 22x." },
+      { num: 34, sec: "Section 8: Quantitative Financial Funnel", title: "Revenue Realization & Healthcare ROAS Economics", subtitle: "Attributed Monthly Revenue: ₹10.54 Lakhs", notes: "Healthcare possesses unique revenue compounding. A patient who visits an OPD cardiologist often undergoes stress tests, echocardiograms, and angioplasties. A ₹48,000 monthly ad investment yields over ₹10.5 Lakhs in attributed clinical revenue." },
+      { num: 35, sec: "Section 9: Digital Technology Infrastructure", title: "Web Infrastructure & 1-Tap WhatsApp Conversion", subtitle: "Sub-100ms Page Load & Zero Booking Drop-Off", notes: "Our landing page was custom-engineered to eliminate drop-off. By loading in under 100 milliseconds and instantly generating a pre-filled WhatsApp message, we convert over 8.2% of mobile visitors into qualified leads." },
+      { num: 36, sec: "Section 9: Digital Technology Infrastructure", title: "Measurement Stack, GA4 & Closed-Loop Attribution", subtitle: "End-to-End Hospital Billing Traceability", notes: "We maintain strict closed-loop attribution: every WhatsApp lead is matched against the hospital's billing register, allowing hospital management to see exactly which ad campaign generated which patient consultation." },
+      { num: 37, sec: "Section 10: Implementation Roadmap & Conclusion", title: "5-Week Implementation Roadmap & Executive Recommendations", subtitle: "Governance, Operational SLAs & Scale Triggers", notes: "In conclusion, Project B5 delivers a complete, portfolio-ready digital marketing system: from empirical survey insights and competitor audits to live web assets and an econometric 21.9x ROAS model. Thank you, and I look forward to your questions." }
+    ];
+
+    // Combine slides
+    ADDITIONAL_SLIDES.forEach(s => {
+      if (s.num > 10) {
+        SLIDES.push({
+          num: s.num,
+          sec: s.sec,
+          title: s.title,
+          subtitle: s.subtitle,
+          content: `
+            <div class="space-y-4 py-4 text-xs">
+              <div class="p-5 rounded-2xl bg-[var(--background)] border border-[var(--card-border)] space-y-3">
+                <span class="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-300">
+                  ${s.sec}
+                </span>
+                <h3 class="text-lg md:text-xl font-bold text-[var(--foreground)]">${s.title}</h3>
+                <p class="text-xs text-[var(--muted-foreground)]">${s.subtitle}</p>
+                <div class="pt-3 border-t border-[var(--card-border)] text-xs text-[var(--foreground)] leading-relaxed">
+                  <p>Detailed analysis, data tables, and mathematical formulas for this slide are codified in the primary report artifact: <strong>CarePoint_Marketing_Strategy_Slide_Deck.md</strong>.</p>
+                </div>
+              </div>
+            </div>
+          `,
+          notes: s.notes
+        });
+      }
+    });
+
+    let currentSlide = 1;
+    const totalSlides = 37;
+
+    function populateSelect() {
+      const select = document.getElementById('slideSelect');
+      select.innerHTML = '';
+      SLIDES.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.num;
+        opt.textContent = s.num + ". " + s.title;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderSlide(num) {
+      currentSlide = num;
+      const s = SLIDES[num - 1];
+
+      const card = document.getElementById('slideCard');
+      card.innerHTML = `
+        <div class="space-y-1">
+          <div class="flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+            <span class="font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wider">${s.sec}</span>
+            <span class="font-mono">Slide ${s.num} / 37</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-[var(--foreground)]">${s.title}</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">${s.subtitle}</p>
+        </div>
+
+        <div class="my-4 flex-1">
+          ${s.content}
+        </div>
+
+        <div class="pt-3 border-t border-[var(--card-border)] flex items-center justify-between text-[11px] text-[var(--muted-foreground)]">
+          <span>CarePoint Hospital, Jaipur • Project B5 Report</span>
+          <span>Confidential — Internal Strategy Deck</span>
+        </div>
+      `;
+
+      // Update UI elements
+      document.getElementById('currentSlideNum').textContent = num;
+      document.getElementById('slideSelect').value = num;
+      document.getElementById('slideCategoryLabel').textContent = "• " + s.sec;
+      document.getElementById('speakerNotesText').textContent = s.notes;
+      document.getElementById('slideProgressBar').style.width = ((num / totalSlides) * 100) + '%';
+
+      document.getElementById('btnPrev').disabled = (num === 1);
+      document.getElementById('btnNext').disabled = (num === totalSlides);
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        renderSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        renderSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(num) {
+      if (num >= 1 && num <= totalSlides) {
+        renderSlide(num);
+      }
+    }
+
+    function toggleNotes() {
+      const panel = document.getElementById('speakerNotesPanel');
+      panel.classList.toggle('hidden');
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    populateSelect();
+    renderSlide(1);
+  </script>
+</body>
+</html>
