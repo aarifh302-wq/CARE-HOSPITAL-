@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePoint Hospital Jaipur — Project B5 Unified Suite</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --shell-bg: #f8fafc;
+      --shell-header: #ffffff;
+      --shell-border: #e2e8f0;
+      --shell-text: #0f172a;
+      --shell-subtitle: #0f766e;
+      --shell-nav-bg: #f1f5f9;
+      --shell-btn-bg: #ffffff;
+      --shell-btn-text: #334155;
+      --shell-btn-hover: #f1f5f9;
+      --tab-inactive: #475569;
+    }
+    html.dark, body.dark, :root.dark {
+      --shell-bg: #090d16;
+      --shell-header: #020617;
+      --shell-border: #1e293b;
+      --shell-text: #f8fafc;
+      --shell-subtitle: #2dd4bf;
+      --shell-nav-bg: #0f172a;
+      --shell-btn-bg: #0f172a;
+      --shell-btn-text: #cbd5e1;
+      --shell-btn-hover: #1e293b;
+      --tab-inactive: #94a3b8;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--shell-bg);
+      color: var(--shell-text);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .shell-header {
+      background-color: var(--shell-header);
+      border-bottom: 1px solid var(--shell-border);
+    }
+    .shell-nav {
+      background-color: var(--shell-nav-bg);
+      border: 1px solid var(--shell-border);
+    }
+    .shell-btn {
+      background-color: var(--shell-btn-bg);
+      border: 1px solid var(--shell-border);
+      color: var(--shell-btn-text);
+    }
+    .shell-btn:hover {
+      background-color: var(--shell-btn-hover);
+    }
+    .view-frame {
+      width: 100%;
+      height: calc(100vh - 60px);
+      border: none;
+      display: none;
+      background-color: var(--shell-bg);
+    }
+    .view-frame.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen">
+
+  <!-- Master Top Navigation Bar -->
+  <header class="h-[60px] shell-header px-4 flex items-center justify-between gap-4 z-50 shrink-0 select-none shadow-sm">
+    
+    <!-- Left: Branding -->
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-teal-600 flex items-center justify-center text-white font-bold text-sm shadow">
+        CP+
+      </div>
+      <div class="hidden sm:block">
+        <h1 class="text-xs md:text-sm font-bold tracking-tight" style="color: var(--shell-text)">CarePoint Hospital, Jaipur</h1>
+        <p class="text-[10px] font-medium" style="color: var(--shell-subtitle)">Project B5: Digital Marketing &amp; Analytics Suite</p>
+      </div>
+    </div>
+
+    <!-- Center: 3-in-1 Navigation Tabs -->
+    <nav class="flex items-center gap-1 shell-nav p-1 rounded-xl shadow-inner">
+      <button onclick="switchView('presentation')" id="tab-presentation" 
+              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow">
+        <span>📑</span> <span class="hidden md:inline">37-Slide</span> <span>Presentation</span>
+      </button>
+
+      <button onclick="switchView('dashboard')" id="tab-dashboard" 
+              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5" style="color: var(--tab-inactive)">
+        <span>📈</span> <span class="hidden md:inline">Growth</span> <span>Dashboard</span>
+      </button>
+
+      <button onclick="switchView('website')" id="tab-website" 
+              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5" style="color: var(--tab-inactive)">
+        <span>🏥</span> <span class="hidden md:inline">Patient</span> <span>Website</span>
+      </button>
+    </nav>
+
+    <!-- Right: Quick Actions -->
+    <div class="flex items-center gap-2">
+      <button onclick="toggleMasterTheme()" id="btnMasterTheme"
+              class="px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition flex items-center gap-1" title="Toggle Light/Dark Theme">
+        <span id="themeMasterIcon">🌙</span> <span class="hidden sm:inline" id="themeMasterText">Dark</span>
+      </button>
+
+      <button onclick="copyCurrentUrl()" 
+              class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition" title="Copy shareable link to this view">
+        <span>🔗</span> <span id="copyBtnText">Copy Link</span>
+      </button>
+
+      <a id="btnPopout" href="presentation_slides.html" target="_blank" 
+         class="px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition flex items-center gap-1" title="Open active view in separate tab">
+        <span>↗</span> <span class="hidden sm:inline">New Tab</span>
+      </a>
+    </div>
+
+  </header>
+
+  <!-- View Frames Container (Kept in DOM so no state is reloaded) -->
+  <main class="flex-1 w-full relative" style="background-color: var(--shell-bg);">
+    <iframe id="frame-presentation" class="view-frame active" src="presentation_slides.html" title="37-Slide Strategic Presentation"></iframe>
+    <iframe id="frame-dashboard" class="view-frame" src="dashboard.html" title="Marketing Analytics & Funnel Dashboard"></iframe>
+    <iframe id="frame-website" class="view-frame" src="patient_website.html" title="CarePoint Hospital Patient Booking Website"></iframe>
+  </main>
+
+  <script>
+    const VIEWS = {
+      presentation: {
+        id: "presentation",
+        file: "presentation_slides.html",
+        title: "37-Slide Strategic Presentation — CarePoint Hospital"
+      },
+      dashboard: {
+        id: "dashboard",
+        file: "dashboard.html",
+        title: "Marketing Analytics & Funnel Dashboard — CarePoint Hospital"
+      },
+      website: {
+        id: "website",
+        file: "patient_website.html",
+        title: "CarePoint Hospital Jaipur — Patient Appointment Website"
+      }
+    };
+
+    let activeView = "presentation";
+
+    function switchView(viewName) {
+      if (!VIEWS[viewName]) return;
+      activeView = viewName;
+
+      // Update iframes
+      document.querySelectorAll('.view-frame').forEach(f => f.classList.remove('active'));
+      document.getElementById('frame-' + viewName).classList.add('active');
+
+      // Update tabs
+      ['presentation', 'dashboard', 'website'].forEach(v => {
+        const btn = document.getElementById('tab-' + v);
+        if (v === viewName) {
+          btn.className = "px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow";
+          btn.style.color = "#ffffff";
+        } else {
+          btn.className = "px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 hover:opacity-80";
+          btn.style.color = "var(--tab-inactive)";
+        }
+      });
+
+      // Update Popout link
+      document.getElementById('btnPopout').href = VIEWS[viewName].file;
+
+      // Update URL hash without reload
+      window.location.hash = viewName;
+    }
+
+    function copyCurrentUrl() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const txt = document.getElementById('copyBtnText');
+        txt.textContent = "Copied!";
+        txt.classList.add('text-teal-400');
+        setTimeout(() => {
+          txt.textContent = "Copy Link";
+          txt.classList.remove('text-teal-400');
+        }, 2000);
+      }).catch(() => {
+        alert("Shareable link: " + url);
+      });
+    }
+
+    function toggleMasterTheme() {
+      const current = localStorage.getItem('carepoint_theme') || 'light';
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('carepoint_theme', newTheme);
+      applyMasterTheme(newTheme);
+    }
+
+    function applyMasterTheme(theme) {
+      const isDark = theme === 'dark';
+      const icon = document.getElementById('themeMasterIcon');
+      const text = document.getElementById('themeMasterText');
+      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+      if (text) text.textContent = isDark ? 'Light' : 'Dark';
+
+      ['frame-presentation', 'frame-dashboard'].forEach(id => {
+        try {
+          const frame = document.getElementById(id);
+          if (frame && frame.contentWindow && frame.contentWindow.document) {
+            frame.contentWindow.document.documentElement.classList.toggle('dark', isDark);
+            if (typeof frame.contentWindow.updateThemeButton === 'function') {
+              frame.contentWindow.updateThemeButton();
+            }
+          }
+        } catch (e) {
+          // Ignore
+        }
+      });
+    }
+
+    // Handle hash on initial load
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('carepoint_theme') || 'light';
+      applyMasterTheme(savedTheme);
+
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (VIEWS[hash]) {
+        switchView(hash);
+      } else {
+        switchView('presentation');
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (VIEWS[hash] && hash !== activeView) {
+        switchView(hash);
+      }
+    });
+  </script>
+</body>
+</html>
