@@ -4,8 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CarePoint Hospital Jaipur — Digital Marketing Strategy (37 Slides)</title>
+  <script>
+    tailwind = {
+      darkMode: 'class'
+    };
+  </script>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
+    :root {
+      --background: #f8fafc;
+      --card: #ffffff;
+      --card-border: #e2e8f0;
+      --foreground: #0f172a;
+      --muted-foreground: #475569;
+    }
+    html.dark, body.dark, :root.dark {
+      --background: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --foreground: #f8fafc;
+      --muted-foreground: #94a3b8;
+    }
+    body {
+      background-color: var(--background) !important;
+      color: var(--foreground) !important;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
     .slide-enter { animation: fadeIn 0.25s ease-out; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -14,6 +38,45 @@
   </style>
 </head>
 <body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col font-sans select-none">
+
+  <!-- Standalone Admin Auth Lock Screen -->
+  <div id="standaloneAdminLock" class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md hidden" style="background-color: var(--background);">
+    <div class="max-w-md w-full rounded-2xl p-6 sm:p-8 shadow-2xl border text-center space-y-4" style="background-color: var(--card); border-color: var(--card-border); color: var(--foreground);">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-600 text-white text-2xl flex items-center justify-center shadow-lg">
+        🔒
+      </div>
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-600 border border-amber-500/20 mb-2">
+          Admin Confidential
+        </span>
+        <h2 class="text-xl font-bold">CarePoint Hospital Strategy Deck</h2>
+        <p class="text-xs text-[var(--muted-foreground)] mt-1">
+          This 37-slide strategic growth deck contains internal clinical footfall models, budgets, and competitor audits. Administrative passcode required.
+        </p>
+      </div>
+
+      <form onsubmit="handleDirectUnlock(event)" class="space-y-3 pt-2 text-left">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">Admin Passcode</label>
+          <input type="password" id="directPassInput" placeholder="Enter administrative passcode" required
+                 class="w-full px-3.5 py-2.5 rounded-xl border text-sm outline-none transition focus:ring-2 focus:ring-teal-500"
+                 style="background-color: var(--background); border-color: var(--card-border); color: var(--foreground);">
+          <p id="directPassError" class="text-xs text-red-500 mt-1.5 font-medium hidden">
+            ❌ Invalid passcode. Access denied.
+          </p>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl text-xs font-semibold bg-teal-600 hover:bg-teal-700 text-white shadow transition flex items-center justify-center gap-1.5">
+          <span>Unlock Presentation Deck</span> <span>→</span>
+        </button>
+      </form>
+
+      <div class="pt-3 border-t text-xs text-[var(--muted-foreground)] flex items-center justify-between" style="border-color: var(--card-border);">
+        <a href="index.html#website" class="text-teal-600 hover:underline">← Public Patient Website</a>
+        <span>NABH &amp; NABL Accredited</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Top Navigation Ribbon -->
   <header class="bg-[var(--card)] border-b border-[var(--card-border)] px-4 py-3 flex items-center justify-between gap-4 sticky top-0 z-40 shadow-sm">
@@ -37,6 +100,16 @@
       <button onclick="toggleNotes()" id="btnToggleNotes"
               class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition text-[var(--foreground)] flex items-center gap-1.5">
         <span>📝</span> <span class="hidden sm:inline">Speaker Notes</span>
+      </button>
+
+      <button onclick="toggleTheme()" id="btnTheme" title="Toggle Light/Dark Theme"
+              class="px-3 py-1.5 rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition text-[var(--foreground)] flex items-center gap-1.5">
+        <span>🌙</span> <span class="hidden sm:inline">Dark</span>
+      </button>
+
+      <button onclick="toggleAdminLock()" id="btnAdminLock" title="Lock Admin Session"
+              class="px-2.5 py-1.5 rounded-lg border border-[var(--card-border)] text-xs font-medium hover:bg-[var(--card-border)] transition text-[var(--foreground)] flex items-center gap-1">
+        <span>🔒</span> <span class="hidden sm:inline">Lock</span>
       </button>
 
       <a href="dashboard.html" target="_blank"
@@ -535,6 +608,30 @@
       panel.classList.toggle('hidden');
     }
 
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('carepoint_theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
+    }
+
+    function updateThemeButton() {
+      const btn = document.getElementById('btnTheme');
+      if (!btn) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      btn.innerHTML = isDark ? '<span>☀️</span> <span class="hidden sm:inline">Light</span>' : '<span>🌙</span> <span class="hidden sm:inline">Dark</span>';
+      btn.title = isDark ? "Switch to Crisp Light Theme" : "Switch to Dark Theme";
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('carepoint_theme');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      updateThemeButton();
+    })();
+
     // Keyboard navigation
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -544,8 +641,66 @@
       }
     });
 
+    // Admin Passcode Security System
+    const ADMIN_PASSCODES = ['carepoint2026', 'admin123', 'carepoint@admin'];
+
+    function checkAdminAuth() {
+      const isAuth = sessionStorage.getItem('carepoint_admin_auth') === 'true' || 
+                     localStorage.getItem('carepoint_admin_auth') === 'true';
+      const lock = document.getElementById('standaloneAdminLock');
+      if (lock) {
+        if (isAuth) {
+          lock.classList.add('hidden');
+        } else {
+          lock.classList.remove('hidden');
+          setTimeout(() => {
+            const input = document.getElementById('directPassInput');
+            if (input) input.focus();
+          }, 100);
+        }
+      }
+    }
+
+    function handleDirectUnlock(e) {
+      e.preventDefault();
+      const input = document.getElementById('directPassInput');
+      const error = document.getElementById('directPassError');
+      const val = input.value.trim();
+      if (ADMIN_PASSCODES.includes(val)) {
+        sessionStorage.setItem('carepoint_admin_auth', 'true');
+        localStorage.setItem('carepoint_admin_auth', 'true');
+        if (error) error.classList.add('hidden');
+        checkAdminAuth();
+      } else {
+        if (error) error.classList.remove('hidden');
+        input.focus();
+        input.select();
+      }
+    }
+
+    function toggleAdminLock() {
+      if (confirm("Lock admin session?")) {
+        sessionStorage.removeItem('carepoint_admin_auth');
+        localStorage.removeItem('carepoint_admin_auth');
+        checkAdminAuth();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data === 'UNLOCK_ADMIN') {
+        sessionStorage.setItem('carepoint_admin_auth', 'true');
+        localStorage.setItem('carepoint_admin_auth', 'true');
+        checkAdminAuth();
+      } else if (e.data === 'LOCK_ADMIN') {
+        sessionStorage.removeItem('carepoint_admin_auth');
+        localStorage.removeItem('carepoint_admin_auth');
+        checkAdminAuth();
+      }
+    });
+
     populateSelect();
     renderSlide(1);
+    checkAdminAuth();
   </script>
 </body>
 </html>
