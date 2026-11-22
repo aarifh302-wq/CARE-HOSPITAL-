@@ -1,438 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CarePoint Hospital Jaipur — Project B5 Unified Suite</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <style>
-    :root {
-      --shell-bg: #f8fafc;
-      --shell-header: #ffffff;
-      --shell-border: #e2e8f0;
-      --shell-text: #0f172a;
-      --shell-subtitle: #0f766e;
-      --shell-nav-bg: #f1f5f9;
-      --shell-btn-bg: #ffffff;
-      --shell-btn-text: #334155;
-      --shell-btn-hover: #f1f5f9;
-      --tab-inactive: #475569;
-    }
-    html.dark, body.dark, :root.dark {
-      --shell-bg: #090d16;
-      --shell-header: #020617;
-      --shell-border: #1e293b;
-      --shell-text: #f8fafc;
-      --shell-subtitle: #2dd4bf;
-      --shell-nav-bg: #0f172a;
-      --shell-btn-bg: #0f172a;
-      --shell-btn-text: #cbd5e1;
-      --shell-btn-hover: #1e293b;
-      --tab-inactive: #94a3b8;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--shell-bg);
-      color: var(--shell-text);
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-    .shell-header {
-      background-color: var(--shell-header);
-      border-bottom: 1px solid var(--shell-border);
-    }
-    .shell-nav {
-      background-color: var(--shell-nav-bg);
-      border: 1px solid var(--shell-border);
-    }
-    .shell-btn {
-      background-color: var(--shell-btn-bg);
-      border: 1px solid var(--shell-border);
-      color: var(--shell-btn-text);
-    }
-    .shell-btn:hover {
-      background-color: var(--shell-btn-hover);
-    }
-    .view-frame {
-      width: 100%;
-      height: calc(100vh - 60px);
-      border: none;
-      display: none;
-      background-color: var(--shell-bg);
-    }
-    .view-frame.active {
-      display: block;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO: keep the title under 60 characters and the description under 160. Replace [City] and the business name. -->
+<title>Brew &amp; Bloom Cafe | Best Cafe in [City]</title>
+<meta name="description" content="Brew &amp; Bloom Cafe in [City]: fresh coffee, breakfast and snacks. See the menu, find us on the map and send an enquiry today.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.example.com/">
+<meta property="og:title" content="Brew &amp; Bloom Cafe | Best Cafe in [City]">
+<meta property="og:description" content="Fresh coffee, breakfast and snacks in [City]. Visit us or send an enquiry.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Brew & Bloom Cafe",
+  "description": "Cafe serving fresh coffee, breakfast and snacks in [City].",
+  "telephone": "+91-XXXXXXXXXX",
+  "address": { "@type": "PostalAddress", "streetAddress": "[Street address]", "addressLocality": "[City]", "addressCountry": "IN" },
+  "openingHours": "Mo-Su 08:00-22:00"
+}
+</script>
+<style>
+  :root { --navy:#0F1B3D; --paper:#F6F1E7; --gold:#F2A33B; --ink:#1B2440; --muted:#4A5568; --card:#FBF8F1; --line:#E0D6C0; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: "DM Sans", Arial, sans-serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+  header { background:var(--navy); color:var(--paper); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  header strong { font-size:1.2rem; }
+  nav a { color:var(--paper); margin-left:16px; text-decoration:none; font-weight:600; }
+  nav a:hover { color:var(--gold); }
+  .hero { background:var(--navy); color:var(--paper); padding:64px 20px 72px; text-align:center; }
+  .hero h1 { font-size:clamp(2rem, 6vw, 3.4rem); margin:0 0 12px; }
+  .hero p { max-width:620px; margin:0 auto 24px; color:#C9D3E8; font-size:1.1rem; }
+  .btn { display:inline-block; padding:12px 22px; border-radius:10px; font-weight:700; text-decoration:none; margin:6px; }
+  .btn.primary { background:var(--gold); color:var(--navy); }
+  .btn.ghost { border:2px solid var(--paper); color:var(--paper); }
+  section { max-width:980px; margin:0 auto; padding:48px 20px; }
+  h2 { color:var(--navy); font-size:1.9rem; margin:0 0 16px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .card h3 { margin:0 0 6px; color:var(--navy); }
+  .price { color:#A9500F; font-weight:700; }
+  form { display:grid; gap:12px; max-width:520px; }
+  label { font-weight:600; }
+  input, textarea { width:100%; padding:11px; border:1px solid var(--line); border-radius:8px; font:inherit; background:#FFFDF8; }
+  button { padding:13px; border:0; border-radius:10px; background:var(--navy); color:var(--paper); font:inherit; font-weight:700; cursor:pointer; }
+  footer { background:var(--navy); color:#C9D3E8; text-align:center; padding:22px 20px; }
+</style>
 </head>
-<body class="flex flex-col h-screen">
+<body>
 
-  <!-- Master Top Navigation Bar -->
-  <header class="h-[60px] shell-header px-4 flex items-center justify-between gap-4 z-50 shrink-0 select-none shadow-sm">
-    
-    <!-- Left: Branding -->
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-teal-600 flex items-center justify-center text-white font-bold text-sm shadow">
-        CP+
-      </div>
-      <div class="hidden sm:block">
-        <h1 class="text-xs md:text-sm font-bold tracking-tight" style="color: var(--shell-text)">CarePoint Hospital, Jaipur</h1>
-        <p class="text-[10px] font-medium" style="color: var(--shell-subtitle)">Project B5: Digital Marketing &amp; Analytics Suite</p>
-      </div>
-    </div>
+<header>
+  <strong>Brew &amp; Bloom Cafe</strong>
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <!-- Center: 3-in-1 Navigation Tabs -->
-    <nav class="flex items-center gap-1 shell-nav p-1 rounded-xl shadow-inner">
-      <button onclick="switchView('presentation')" id="tab-presentation" 
-              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow">
-        <span>📑</span> <span class="hidden md:inline">37-Slide</span> <span>Presentation</span> <span class="text-[10px] opacity-75">🔒</span>
-      </button>
-
-      <button onclick="switchView('dashboard')" id="tab-dashboard" 
-              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5" style="color: var(--tab-inactive)">
-        <span>📈</span> <span class="hidden md:inline">Growth</span> <span>Dashboard</span> <span class="text-[10px] opacity-75">🔒</span>
-      </button>
-
-      <button onclick="switchView('website')" id="tab-website" 
-              class="px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5" style="color: var(--tab-inactive)">
-        <span>🏥</span> <span class="hidden md:inline">Patient</span> <span>Website</span>
-      </button>
-    </nav>
-
-    <!-- Right: Quick Actions -->
-    <div class="flex items-center gap-2">
-      <button onclick="toggleAdminSession()" id="btnAdminAuth"
-              class="px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition flex items-center gap-1" title="Hospital Admin Authentication">
-        <span id="adminAuthIcon">🔒</span> <span class="hidden sm:inline" id="adminAuthText">Admin</span>
-      </button>
-
-      <button onclick="toggleMasterTheme()" id="btnMasterTheme"
-              class="px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition flex items-center gap-1" title="Toggle Light/Dark Theme">
-        <span id="themeMasterIcon">🌙</span> <span class="hidden sm:inline" id="themeMasterText">Dark</span>
-      </button>
-
-      <button onclick="copyCurrentUrl()" 
-              class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition" title="Copy shareable link to this view">
-        <span>🔗</span> <span id="copyBtnText">Copy Link</span>
-      </button>
-
-      <a id="btnPopout" href="presentation_slides.html" target="_blank" 
-         class="px-2.5 py-1.5 rounded-lg shell-btn text-xs font-medium transition flex items-center gap-1" title="Open active view in separate tab">
-        <span>↗</span> <span class="hidden sm:inline">New Tab</span>
-      </a>
-    </div>
-
-  </header>
-
-  <!-- View Frames Container (Kept in DOM so no state is reloaded) -->
-  <main class="flex-1 w-full relative" style="background-color: var(--shell-bg);">
-    <iframe id="frame-presentation" class="view-frame" src="presentation_slides.html" title="37-Slide Strategic Presentation"></iframe>
-    <iframe id="frame-dashboard" class="view-frame" src="dashboard.html" title="Marketing Analytics & Funnel Dashboard"></iframe>
-    <iframe id="frame-website" class="view-frame active" src="patient_website.html" title="CarePoint Hospital Patient Booking Website"></iframe>
-  </main>
-
-  <!-- Admin Passcode Modal Dialog -->
-  <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="max-w-md w-full rounded-2xl p-6 shadow-2xl border" style="background-color: var(--shell-header); border-color: var(--shell-border); color: var(--shell-text);">
-      <div class="flex items-start justify-between gap-4 mb-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white text-lg font-bold shadow">
-            🔒
-          </div>
-          <div>
-            <h3 class="font-bold text-base">Executive Admin Access</h3>
-            <p class="text-xs" style="color: var(--shell-subtitle)">CarePoint Hospital, Jaipur</p>
-          </div>
-        </div>
-        <button onclick="cancelAdminLogin()" class="text-slate-400 hover:text-slate-600 text-lg p-1 leading-none">&times;</button>
-      </div>
-
-      <div class="p-3 rounded-xl mb-4 text-xs space-y-1.5" style="background-color: var(--shell-nav-bg); border: 1px solid var(--shell-border);">
-        <p class="font-medium text-amber-600 dark:text-amber-400 flex items-center gap-1">
-          <span>⚠️</span> <strong>Restricted Strategic Area</strong>
-        </p>
-        <p class="opacity-80">
-          The 37-Slide Strategy Deck and Marketing Econometric Dashboard are restricted to hospital administration and executive leadership.
-        </p>
-      </div>
-
-      <form onsubmit="handleAdminSubmit(event)" class="space-y-4">
-        <div>
-          <label for="adminPassInput" class="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-80">
-            Admin Passcode
-          </label>
-          <div class="relative">
-            <input type="password" id="adminPassInput" required placeholder="Enter administrative passcode"
-                   class="w-full px-3.5 py-2.5 rounded-xl border text-sm outline-none transition focus:ring-2 focus:ring-teal-500"
-                   style="background-color: var(--shell-bg); border-color: var(--shell-border); color: var(--shell-text);">
-            <button type="button" onclick="togglePassVisibility()" class="absolute right-3 top-2.5 text-xs opacity-60 hover:opacity-100" id="passToggleBtn">
-              👁️
-            </button>
-          </div>
-          <p id="adminPassError" class="text-xs text-red-500 mt-1.5 font-medium hidden">
-            ❌ Invalid passcode. Access denied.
-          </p>
-        </div>
-
-        <div class="flex items-center justify-between gap-2 pt-2">
-          <button type="button" onclick="cancelAdminLogin()"
-                  class="px-3.5 py-2 rounded-xl text-xs font-medium border transition opacity-80 hover:opacity-100"
-                  style="border-color: var(--shell-border);">
-            ← Public Patient Site
-          </button>
-          <button type="submit"
-                  class="px-4 py-2 rounded-xl text-xs font-semibold bg-teal-600 hover:bg-teal-700 text-white shadow-md transition flex items-center gap-1.5">
-            <span>Unlock Access</span> <span>→</span>
-          </button>
-        </div>
-      </form>
-    </div>
+<main>
+  <div class="hero">
+    <h1>Fresh coffee and good food in [City]</h1>
+    <p>Breakfast, coffee and snacks made fresh every day. Visit us or send an enquiry for parties and catering.</p>
+    <!-- Replace XXXXXXXXXX with the real number. Track clicks on these buttons in Google Analytics as enquiries. -->
+    <a class="btn primary" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20found%20you%20online" id="whatsapp-btn">Message on WhatsApp</a>
+    <a class="btn ghost" href="tel:+91XXXXXXXXXX" id="call-btn">Call us</a>
   </div>
 
-  <script>
-    const ADMIN_PASSCODES = ['carepoint2026', 'admin123', 'carepoint@admin'];
-    const ADMIN_VIEWS = ['presentation', 'dashboard'];
-    let pendingAdminView = null;
+  <section id="menu">
+    <h2>Our menu</h2>
+    <p>Replace these sample items and prices with the real menu.</p>
+    <div class="grid">
+      <div class="card"><h3>[Signature coffee]</h3><p>Short description of the item.</p><p class="price">Rs [price]</p></div>
+      <div class="card"><h3>[Breakfast item]</h3><p>Short description of the item.</p><p class="price">Rs [price]</p></div>
+      <div class="card"><h3>[Snack or dessert]</h3><p>Short description of the item.</p><p class="price">Rs [price]</p></div>
+    </div>
+  </section>
 
-    const VIEWS = {
-      presentation: {
-        id: "presentation",
-        file: "presentation_slides.html",
-        title: "37-Slide Strategic Presentation — CarePoint Hospital"
-      },
-      dashboard: {
-        id: "dashboard",
-        file: "dashboard.html",
-        title: "Marketing Analytics & Funnel Dashboard — CarePoint Hospital"
-      },
-      website: {
-        id: "website",
-        file: "patient_website.html",
-        title: "CarePoint Hospital Jaipur — Patient Appointment Website"
-      }
-    };
+  <section id="about">
+    <h2>About us</h2>
+    <p>Brew &amp; Bloom Cafe is a neighbourhood cafe in [City]. Write two or three honest sentences here about who you are, what makes your food different and who you like to serve, using words people search for such as "cafe in [City]".</p>
+    <p><strong>Address:</strong> [Street address, City] &nbsp;|&nbsp; <strong>Hours:</strong> [Opening hours]</p>
+  </section>
 
-    let activeView = "website";
+  <section id="contact">
+    <h2>Send an enquiry</h2>
+    <!-- Replace the action with your form service (for example a Formspree or Google Forms endpoint). -->
+    <form action="https://formspree.io/f/your-form-id" method="POST" id="enquiry-form">
+      <div><label for="name">Name</label><input id="name" name="name" required></div>
+      <div><label for="phone">Phone or WhatsApp number</label><input id="phone" name="phone" type="tel" required></div>
+      <div><label for="source">Where did you hear about us?</label><input id="source" name="source" placeholder="Instagram, Facebook, Google, friend..."></div>
+      <div><label for="message">Your message</label><textarea id="message" name="message" rows="4" required></textarea></div>
+      <button type="submit">Send enquiry</button>
+    </form>
+  </section>
+</main>
 
-    function isAdminAuthenticated() {
-      return sessionStorage.getItem('carepoint_admin_auth') === 'true' || 
-             localStorage.getItem('carepoint_admin_auth') === 'true';
-    }
+<footer>
+  <p>&copy; Brew &amp; Bloom Cafe, [City]. Sample site for a marketing project.</p>
+</footer>
 
-    function updateAdminUI() {
-      const isAuth = isAdminAuthenticated();
-      const icon = document.getElementById('adminAuthIcon');
-      const text = document.getElementById('adminAuthText');
-      const btn = document.getElementById('btnAdminAuth');
-      if (icon && text && btn) {
-        if (isAuth) {
-          icon.textContent = '🔓';
-          text.textContent = 'Admin (Unlocked)';
-          btn.title = 'Click to lock admin session and logout';
-          btn.classList.add('border-emerald-500', 'text-emerald-600');
-        } else {
-          icon.textContent = '🔒';
-          text.textContent = 'Admin';
-          btn.title = 'Login with hospital admin passcode';
-          btn.classList.remove('border-emerald-500', 'text-emerald-600');
-        }
-      }
-
-      // Sync iframes
-      ['frame-presentation', 'frame-dashboard'].forEach(id => {
-        try {
-          const frame = document.getElementById(id);
-          if (frame && frame.contentWindow) {
-            frame.contentWindow.postMessage(isAuth ? 'UNLOCK_ADMIN' : 'LOCK_ADMIN', '*');
-            if (typeof frame.contentWindow.checkAdminAuth === 'function') {
-              frame.contentWindow.checkAdminAuth();
-            }
-          }
-        } catch (e) {}
-      });
-    }
-
-    function toggleAdminSession() {
-      if (isAdminAuthenticated()) {
-        if (confirm("Lock admin session and log out?")) {
-          sessionStorage.removeItem('carepoint_admin_auth');
-          localStorage.removeItem('carepoint_admin_auth');
-          updateAdminUI();
-          switchView('website');
-        }
-      } else {
-        openAdminModal('presentation');
-      }
-    }
-
-    function openAdminModal(targetView) {
-      pendingAdminView = targetView || 'presentation';
-      const modal = document.getElementById('adminModal');
-      const input = document.getElementById('adminPassInput');
-      const error = document.getElementById('adminPassError');
-      if (error) error.classList.add('hidden');
-      if (input) input.value = '';
-      if (modal) {
-        modal.classList.remove('hidden');
-        setTimeout(() => input && input.focus(), 50);
-      }
-    }
-
-    function closeAdminModal() {
-      const modal = document.getElementById('adminModal');
-      if (modal) modal.classList.add('hidden');
-      pendingAdminView = null;
-    }
-
-    function cancelAdminLogin() {
-      closeAdminModal();
-      if (ADMIN_VIEWS.includes(activeView)) {
-        switchView('website');
-      }
-    }
-
-    function togglePassVisibility() {
-      const input = document.getElementById('adminPassInput');
-      const btn = document.getElementById('passToggleBtn');
-      if (!input) return;
-      if (input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '🙈';
-      } else {
-        input.type = 'password';
-        btn.textContent = '👁️';
-      }
-    }
-
-    function handleAdminSubmit(e) {
-      e.preventDefault();
-      const input = document.getElementById('adminPassInput');
-      const error = document.getElementById('adminPassError');
-      const entered = input.value.trim();
-
-      if (ADMIN_PASSCODES.includes(entered)) {
-        sessionStorage.setItem('carepoint_admin_auth', 'true');
-        localStorage.setItem('carepoint_admin_auth', 'true');
-        updateAdminUI();
-        const target = pendingAdminView || 'presentation';
-        closeAdminModal();
-        doSwitchView(target);
-      } else {
-        if (error) error.classList.remove('hidden');
-        input.focus();
-        input.select();
-      }
-    }
-
-    function switchView(viewName) {
-      if (!VIEWS[viewName]) return;
-      if (ADMIN_VIEWS.includes(viewName) && !isAdminAuthenticated()) {
-        openAdminModal(viewName);
-        return;
-      }
-      doSwitchView(viewName);
-    }
-
-    function doSwitchView(viewName) {
-      activeView = viewName;
-
-      // Update iframes
-      document.querySelectorAll('.view-frame').forEach(f => f.classList.remove('active'));
-      const activeFrame = document.getElementById('frame-' + viewName);
-      if (activeFrame) activeFrame.classList.add('active');
-
-      // Update tabs
-      ['presentation', 'dashboard', 'website'].forEach(v => {
-        const btn = document.getElementById('tab-' + v);
-        if (v === viewName) {
-          btn.className = "px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 bg-teal-600 text-white shadow";
-          btn.style.color = "#ffffff";
-        } else {
-          btn.className = "px-3 md:px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 hover:opacity-80";
-          btn.style.color = "var(--tab-inactive)";
-        }
-      });
-
-      // Update Popout link
-      const btnPopout = document.getElementById('btnPopout');
-      if (btnPopout) btnPopout.href = VIEWS[viewName].file;
-
-      // Update URL hash without reload
-      window.location.hash = viewName;
-    }
-
-    function copyCurrentUrl() {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        const txt = document.getElementById('copyBtnText');
-        txt.textContent = "Copied!";
-        txt.classList.add('text-teal-400');
-        setTimeout(() => {
-          txt.textContent = "Copy Link";
-          txt.classList.remove('text-teal-400');
-        }, 2000);
-      }).catch(() => {
-        alert("Shareable link: " + url);
-      });
-    }
-
-    function toggleMasterTheme() {
-      const current = localStorage.getItem('carepoint_theme') || 'light';
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('carepoint_theme', newTheme);
-      applyMasterTheme(newTheme);
-    }
-
-    function applyMasterTheme(theme) {
-      const isDark = theme === 'dark';
-      const icon = document.getElementById('themeMasterIcon');
-      const text = document.getElementById('themeMasterText');
-      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
-      if (text) text.textContent = isDark ? 'Light' : 'Dark';
-
-      ['frame-presentation', 'frame-dashboard'].forEach(id => {
-        try {
-          const frame = document.getElementById(id);
-          if (frame && frame.contentWindow && frame.contentWindow.document) {
-            frame.contentWindow.document.documentElement.classList.toggle('dark', isDark);
-            if (typeof frame.contentWindow.updateThemeButton === 'function') {
-              frame.contentWindow.updateThemeButton();
-            }
-          }
-        } catch (e) {
-          // Ignore
-        }
-      });
-    }
-
-    // Handle hash and authentication on initial load
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('carepoint_theme') || 'light';
-      applyMasterTheme(savedTheme);
-      updateAdminUI();
-
-      const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash && VIEWS[hash]) {
-        if (ADMIN_VIEWS.includes(hash) && !isAdminAuthenticated()) {
-          doSwitchView('website');
-          openAdminModal(hash);
-        } else {
-          doSwitchView(hash);
-        }
-      } else {
-        doSwitchView('website');
-      }
-    });
-
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (VIEWS[hash] && hash !== activeView) {
-        switchView(hash);
-      }
-    });
-  </script>
 </body>
 </html>
