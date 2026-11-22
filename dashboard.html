@@ -35,28 +35,33 @@
 <body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen p-4 md:p-6 font-sans">
 
   <!-- Standalone Admin Auth Lock Screen -->
-  <div id="standaloneAdminLock" class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md hidden" style="background-color: var(--background);">
+  <div id="standaloneAdminLock" class="fixed inset-0 z-50 items-center justify-center p-4 backdrop-blur-md" style="display: none; background-color: var(--background);">
     <div class="max-w-md w-full rounded-2xl p-6 sm:p-8 shadow-2xl border text-center space-y-4" style="background-color: var(--card); border-color: var(--card-border); color: var(--foreground);">
       <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-600 text-white text-2xl flex items-center justify-center shadow-lg">
         🔒
       </div>
       <div>
         <span class="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-600 border border-amber-500/20 mb-2">
-          Admin Confidential
+          👑 Executive Clearance Required
         </span>
         <h2 class="text-xl font-bold">Marketing &amp; Financial Dashboard</h2>
         <p class="text-xs text-[var(--muted-foreground)] mt-1">
-          This dashboard contains internal patient acquisition costs, hospital revenue realizations, and ROI metrics. Administrative passcode required.
+          This dashboard contains internal patient acquisition costs, hospital revenue realizations, and ROI metrics. Executive passcode required.
         </p>
+      </div>
+
+      <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 text-left text-xs space-y-1 text-slate-600 dark:text-slate-300">
+        <div><strong>👑 Executive Passcode:</strong> Full Access (e.g. <code>exec2026</code>)</div>
+        <div class="text-[11px] text-slate-400">🩺 Note: Employee / Staff passcodes cannot access billing models &amp; ad budgets.</div>
       </div>
 
       <form onsubmit="handleDirectUnlock(event)" class="space-y-3 pt-2 text-left">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">Admin Passcode</label>
-          <input type="password" id="directPassInput" placeholder="Enter administrative passcode" required
+          <label class="block text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">Executive Passcode</label>
+          <input type="password" id="directPassInput" placeholder="Enter Executive passcode (e.g. exec2026)" required
                  class="w-full px-3.5 py-2.5 rounded-xl border text-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                  style="background-color: var(--background); border-color: var(--card-border); color: var(--foreground);">
-          <p id="directPassError" class="text-xs text-red-500 mt-1.5 font-medium hidden">
+          <p id="directPassError" class="text-xs text-red-500 mt-1.5 font-medium" style="display: none;">
             ❌ Invalid passcode. Access denied.
           </p>
         </div>
@@ -68,6 +73,10 @@
 
       <div class="pt-3 border-t text-xs text-[var(--muted-foreground)] flex items-center justify-between" style="border-color: var(--card-border);">
         <a href="index.html#website" class="text-teal-600 hover:underline">← Public Patient Website</a>
+        <a href="presentation_slides.html" class="text-teal-600 hover:underline">📑 Staff Presentation →</a>
+      </div>
+    </div>
+  </div>
         <span>NABH &amp; NABL Accredited</span>
       </div>
     </div>
@@ -1258,45 +1267,72 @@
       updateThemeButton();
     })();
 
-    // Admin Passcode Security System
-    const ADMIN_PASSCODES = ['carepoint2026', 'admin123', 'carepoint@admin'];
+    // Executive & Employee Passcode Security System
+    const EXECUTIVE_PASSCODES = ['exec2026', 'carepoint@exec', 'director123', 'admin123', 'carepoint2026', 'admin'];
+    const EMPLOYEE_PASSCODES = ['staff2026', 'carepoint@staff', 'employee123', 'staff123', 'staff', 'employee'];
 
     function checkAdminAuth() {
-      const isAuth = sessionStorage.getItem('carepoint_admin_auth') === 'true' || 
-                     localStorage.getItem('carepoint_admin_auth') === 'true';
+      // If embedded inside index.html iframe, index.html guards authentication!
+      if (window.self !== window.top) {
+        const lock = document.getElementById('standaloneAdminLock');
+        if (lock) lock.style.display = 'none';
+        return;
+      }
+
+      const role = sessionStorage.getItem('carepoint_auth_role') || localStorage.getItem('carepoint_auth_role');
+      const isAuth = (sessionStorage.getItem('carepoint_admin_auth') === 'true' || 
+                      localStorage.getItem('carepoint_admin_auth') === 'true') && (role === 'executive');
+
       const lock = document.getElementById('standaloneAdminLock');
       if (lock) {
-        if (isAuth) {
-          lock.classList.add('hidden');
-        } else {
-          lock.classList.remove('hidden');
+        lock.style.display = isAuth ? 'none' : 'flex';
+        if (!isAuth) {
           setTimeout(() => {
             const input = document.getElementById('directPassInput');
             if (input) input.focus();
-          }, 100);
+          }, 80);
         }
       }
     }
 
     function handleDirectUnlock(e) {
-      e.preventDefault();
+      if (e) e.preventDefault();
       const input = document.getElementById('directPassInput');
       const error = document.getElementById('directPassError');
-      const val = input.value.trim();
-      if (ADMIN_PASSCODES.includes(val)) {
+      const val = input ? input.value.trim().toLowerCase() : '';
+
+      if (EXECUTIVE_PASSCODES.map(p => p.toLowerCase()).includes(val)) {
+        sessionStorage.setItem('carepoint_auth_role', 'executive');
+        localStorage.setItem('carepoint_auth_role', 'executive');
         sessionStorage.setItem('carepoint_admin_auth', 'true');
         localStorage.setItem('carepoint_admin_auth', 'true');
-        if (error) error.classList.add('hidden');
+        if (error) error.style.display = 'none';
         checkAdminAuth();
+      } else if (EMPLOYEE_PASSCODES.map(p => p.toLowerCase()).includes(val)) {
+        if (error) {
+          error.innerHTML = '🔒 <strong>Executive Clearance Required:</strong> Employee / Staff passcodes cannot access hospital financial &amp; budget models. Please enter an Executive passcode (e.g. <code>exec2026</code>) or view the Presentation.';
+          error.style.display = 'block';
+        }
+        if (input) {
+          input.focus();
+          input.select();
+        }
       } else {
-        if (error) error.classList.remove('hidden');
-        input.focus();
-        input.select();
+        if (error) {
+          error.innerHTML = '❌ Invalid passcode. Please enter valid Executive passcode (e.g. <code>exec2026</code>).';
+          error.style.display = 'block';
+        }
+        if (input) {
+          input.focus();
+          input.select();
+        }
       }
     }
 
     function toggleAdminLock() {
-      if (confirm("Lock admin session?")) {
+      if (confirm("Lock executive session?")) {
+        sessionStorage.removeItem('carepoint_auth_role');
+        localStorage.removeItem('carepoint_auth_role');
         sessionStorage.removeItem('carepoint_admin_auth');
         localStorage.removeItem('carepoint_admin_auth');
         checkAdminAuth();
@@ -1304,11 +1340,15 @@
     }
 
     window.addEventListener('message', (e) => {
-      if (e.data === 'UNLOCK_ADMIN') {
+      if (e.data === 'UNLOCK_ADMIN' || e.data === 'UNLOCK_EXECUTIVE') {
+        sessionStorage.setItem('carepoint_auth_role', 'executive');
+        localStorage.setItem('carepoint_auth_role', 'executive');
         sessionStorage.setItem('carepoint_admin_auth', 'true');
         localStorage.setItem('carepoint_admin_auth', 'true');
         checkAdminAuth();
       } else if (e.data === 'LOCK_ADMIN') {
+        sessionStorage.removeItem('carepoint_auth_role');
+        localStorage.removeItem('carepoint_auth_role');
         sessionStorage.removeItem('carepoint_admin_auth');
         localStorage.removeItem('carepoint_admin_auth');
         checkAdminAuth();

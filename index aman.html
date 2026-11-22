@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>CarePoint Hospital Jaipur | Leading Multi-Speciality Healthcare</title>
+  <title>CarePoint Hospital Jaipur (Aman) | Leading Multi-Speciality Healthcare</title>
   <meta name="description" content="CarePoint Hospital Jaipur offers 24x7 emergency trauma care, renowned specialist doctors, advanced diagnostics, and quick WhatsApp appointment booking in Jaipur.">
   <meta name="theme-color" content="#0F766E">
   
@@ -3486,13 +3486,45 @@ input[type="date"].form-control {
 })();
 
 // =========================================================================
-// EXECUTIVE ADMIN PASSCODE SECURITY & MODAL SYSTEM
+// EXECUTIVE & EMPLOYEE ROLE-BASED ACCESS CONTROL (RBAC)
 // =========================================================================
-const ADMIN_PASSCODES = ['carepoint2026', 'admin123', 'carepoint@admin', 'admin', 'carepoint'];
+const AUTH_ROLES = {
+  EXECUTIVE: {
+    id: 'executive',
+    title: 'Executive Leadership',
+    badge: '👑 Executive Management Access',
+    desc: 'Unrestricted access to Hospital Revenue Models, Ad Spend Budgets, ROAS Econometrics, and Strategy Decks.',
+    color: '#0F766E',
+    bg: '#F0FDFA',
+    border: '#CCFBF1',
+    passcodes: ['exec2026', 'carepoint@exec', 'director123', 'admin123', 'carepoint2026', 'admin']
+  },
+  EMPLOYEE: {
+    id: 'employee',
+    title: 'Hospital Staff / Employee',
+    badge: '🩺 Hospital Staff / Clinical Access',
+    desc: 'Authorized access to 37-Slide Clinical Presentation, Doctor Protocols, and Patient Desk.',
+    color: '#0369A1',
+    bg: '#F0F9FF',
+    border: '#BAE6FD',
+    passcodes: ['staff2026', 'carepoint@staff', 'employee123', 'staff123', 'staff', 'employee']
+  }
+};
 
-function isAdminAuthenticated() {
-  return sessionStorage.getItem('carepoint_admin_auth') === 'true' || 
-         localStorage.getItem('carepoint_admin_auth') === 'true';
+function getAuthenticatedRole() {
+  return sessionStorage.getItem('carepoint_auth_role') || 
+         localStorage.getItem('carepoint_auth_role');
+}
+
+function verifyPasscode(inputVal) {
+  const val = (inputVal || '').trim().toLowerCase();
+  if (AUTH_ROLES.EXECUTIVE.passcodes.map(p => p.toLowerCase()).includes(val)) {
+    return AUTH_ROLES.EXECUTIVE;
+  }
+  if (AUTH_ROLES.EMPLOYEE.passcodes.map(p => p.toLowerCase()).includes(val)) {
+    return AUTH_ROLES.EMPLOYEE;
+  }
+  return null;
 }
 
 function openAdminModal(e) {
@@ -3506,9 +3538,13 @@ function openAdminModal(e) {
   if (error) error.style.display = 'none';
   if (input) input.value = '';
 
-  if (isAdminAuthenticated()) {
+  const currentRole = getAuthenticatedRole();
+  if (currentRole) {
     if (formSec) formSec.style.display = 'none';
-    if (unlockedSec) unlockedSec.style.display = 'block';
+    if (unlockedSec) {
+      unlockedSec.style.display = 'block';
+      renderRolePermissions(currentRole);
+    }
   } else {
     if (formSec) formSec.style.display = 'block';
     if (unlockedSec) unlockedSec.style.display = 'none';
@@ -3517,7 +3553,7 @@ function openAdminModal(e) {
   if (modal) {
     modal.style.display = 'flex';
     setTimeout(() => {
-      if (!isAdminAuthenticated() && input) input.focus();
+      if (!currentRole && input) input.focus();
     }, 80);
   }
 }
@@ -3539,14 +3575,21 @@ function handleAdminAuth(e) {
   const error = document.getElementById('adminErrorMsg');
   const formSec = document.getElementById('adminFormSection');
   const unlockedSec = document.getElementById('adminUnlockedSection');
-  const val = input ? input.value.trim().toLowerCase() : '';
+  const val = input ? input.value : '';
 
-  if (ADMIN_PASSCODES.map(p => p.toLowerCase()).includes(val)) {
+  const matchedRole = verifyPasscode(val);
+  if (matchedRole) {
+    sessionStorage.setItem('carepoint_auth_role', matchedRole.id);
+    localStorage.setItem('carepoint_auth_role', matchedRole.id);
     sessionStorage.setItem('carepoint_admin_auth', 'true');
     localStorage.setItem('carepoint_admin_auth', 'true');
+
     if (error) error.style.display = 'none';
     if (formSec) formSec.style.display = 'none';
-    if (unlockedSec) unlockedSec.style.display = 'block';
+    if (unlockedSec) {
+      unlockedSec.style.display = 'block';
+      renderRolePermissions(matchedRole.id);
+    }
   } else {
     if (error) error.style.display = 'block';
     if (input) {
@@ -3556,72 +3599,118 @@ function handleAdminAuth(e) {
   }
 }
 
+function renderRolePermissions(roleId) {
+  const badgeEl = document.getElementById('roleBadgeDisplay');
+  const dashboardLink = document.getElementById('roleDashboardLink');
+  const execNotice = document.getElementById('employeeExecNotice');
+
+  if (roleId === 'executive') {
+    if (badgeEl) {
+      badgeEl.innerHTML = '<span>👑</span> <span>Executive Leadership Clearance</span>';
+      badgeEl.style.background = '#ECFDF5';
+      badgeEl.style.borderColor = '#A7F3D0';
+      badgeEl.style.color = '#065F46';
+    }
+    if (dashboardLink) {
+      dashboardLink.style.display = 'flex';
+    }
+    if (execNotice) {
+      execNotice.style.display = 'none';
+    }
+  } else {
+    // Employee Role
+    if (badgeEl) {
+      badgeEl.innerHTML = '<span>🩺</span> <span>Hospital Employee / Staff Clearance</span>';
+      badgeEl.style.background = '#F0F9FF';
+      badgeEl.style.borderColor = '#BAE6FD';
+      badgeEl.style.color = '#0369A1';
+    }
+    if (dashboardLink) {
+      dashboardLink.style.display = 'none';
+    }
+    if (execNotice) {
+      execNotice.style.display = 'block';
+    }
+  }
+}
+
 function lockAdminSession() {
+  sessionStorage.removeItem('carepoint_auth_role');
+  localStorage.removeItem('carepoint_auth_role');
   sessionStorage.removeItem('carepoint_admin_auth');
   localStorage.removeItem('carepoint_admin_auth');
+
   const formSec = document.getElementById('adminFormSection');
   const unlockedSec = document.getElementById('adminUnlockedSection');
   if (formSec) formSec.style.display = 'block';
   if (unlockedSec) unlockedSec.style.display = 'none';
   const input = document.getElementById('adminPassInput');
   if (input) input.value = '';
-  alert("Admin session locked.");
+  alert("Session locked. Returning to Public Patient view.");
+  closeAdminModal();
 }
 
-// Auto-prompt if someone visits with hash #admin, #presentation, or #dashboard
+// Auto-prompt on #admin or #staff hashes
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.toLowerCase();
-  if (hash === '#admin' || hash === '#presentation' || hash === '#dashboard') {
+  if (hash === '#admin' || hash === '#staff' || hash === '#executive' || hash === '#dashboard' || hash === '#presentation') {
     openAdminModal();
   }
 });
 </script>
 
-<!-- Executive Admin Passcode Modal -->
+<!-- Role-Based Staff & Executive Access Modal -->
 <div id="adminModal" style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 1rem;">
-  <div style="background: #ffffff; border-radius: 18px; max-width: 440px; width: 100%; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid #E2E8F0; font-family: 'Poppins', sans-serif;">
+  <div style="background: #ffffff; border-radius: 18px; max-width: 460px; width: 100%; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid #E2E8F0; font-family: 'Poppins', sans-serif;">
     
     <!-- Modal Header -->
     <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px;">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <div style="width: 42px; height: 42px; background: #0F766E; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px;">
-          🔒
+        <div style="width: 44px; height: 44px; background: #0F766E; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; box-shadow: 0 4px 10px rgba(15,118,110,0.2);">
+          🔐
         </div>
         <div>
-          <h3 style="font-size: 16px; font-weight: 700; color: #0F172A; margin: 0;">CarePoint Admin Access</h3>
-          <p style="font-size: 11px; color: #0F766E; margin: 2px 0 0; font-weight: 500;">Executive Strategy &amp; Analytics Portal</p>
+          <h3 style="font-size: 16px; font-weight: 700; color: #0F172A; margin: 0;">CarePoint Staff &amp; Executive Portal</h3>
+          <p style="font-size: 11px; color: #0F766E; margin: 2px 0 0; font-weight: 500;">Role-Based Hospital Authentication</p>
         </div>
       </div>
       <button type="button" onclick="closeAdminModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #64748B; line-height: 1;">&times;</button>
     </div>
 
-    <!-- Notice -->
-    <div style="background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 12px; margin-bottom: 16px; font-size: 12px; color: #92400E; line-height: 1.4;">
-      <strong>Restricted Area:</strong> The 37-Slide Strategic Presentation and Growth Econometric Dashboard require administrative passcode.
+    <!-- Passcode Info Box -->
+    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px; margin-bottom: 16px; font-size: 11px; line-height: 1.5; color: #334155;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+        <span style="font-weight: 700; color: #0F766E;">👑 Executive Passcode:</span>
+        <span style="color: #64748B;">Full Access (Dashboard + Presentation)</span>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <span style="font-weight: 700; color: #0284C7;">🩺 Employee Passcode:</span>
+        <span style="color: #64748B;">Staff Access (Presentation + Clinical)</span>
+      </div>
     </div>
 
     <!-- Auth Form -->
     <div id="adminFormSection">
       <form onsubmit="handleAdminAuth(event)">
         <label style="display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 6px;">
-          Enter Admin Passcode
+          Enter Passcode
         </label>
         <div style="position: relative; margin-bottom: 8px;">
-          <input type="password" id="adminPassInput" placeholder="Passcode (e.g. carepoint2026)" required
+          <input type="password" id="adminPassInput" placeholder="Enter Executive or Employee passcode" required
                  style="width: 100%; padding: 10px 40px 10px 12px; font-size: 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; outline: none; box-sizing: border-box; font-family: inherit;">
           <button type="button" onclick="togglePassVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 14px; opacity: 0.6;">
             👁️
           </button>
         </div>
         <p id="adminErrorMsg" style="display: none; color: #DC2626; font-size: 12px; margin: 0 0 12px; font-weight: 500;">
-          ❌ Invalid passcode. Access denied.
+          ❌ Invalid passcode. Please enter valid Executive or Employee passcode.
         </p>
         <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px;">
           <button type="button" onclick="closeAdminModal()" style="padding: 9px 14px; font-size: 12px; font-weight: 600; border: 1px solid #CBD5E1; background: #F8FAFC; border-radius: 8px; cursor: pointer; color: #475569;">
             Cancel
           </button>
           <button type="submit" style="padding: 9px 16px; font-size: 12px; font-weight: 600; background: #0F766E; color: white; border: none; border-radius: 8px; cursor: pointer;">
-            Unlock Admin Portal →
+            Verify Access →
           </button>
         </div>
       </form>
@@ -3629,26 +3718,44 @@ window.addEventListener('DOMContentLoaded', () => {
 
     <!-- Unlocked Portal Options -->
     <div id="adminUnlockedSection" style="display: none;">
-      <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; color: #065F46; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-        <span>✅</span> Authenticated as Administrator
+      <div id="roleBadgeDisplay" style="border: 1px solid #A7F3D0; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+        <!-- Injected by JS -->
       </div>
+
       <div style="display: flex; flex-direction: column; gap: 10px;">
+        <!-- Presentation (Both Roles) -->
         <a href="presentation_slides.html" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #F0FDFA; border: 1.5px solid #0F766E; border-radius: 10px; color: #0F766E; text-decoration: none; font-weight: 600; font-size: 13px;">
-          <span>📑 37-Slide Strategy Presentation</span>
-          <span>↗</span>
+          <div>
+            <div>📑 37-Slide Strategy &amp; Clinical Presentation</div>
+            <div style="font-size: 11px; font-weight: 400; color: #115E59; margin-top: 2px;">Clinical roadmaps, patient surveys, doctor videos</div>
+          </div>
+          <span style="font-size: 16px;">↗</span>
         </a>
-        <a href="dashboard.html" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 10px; color: #0F172A; text-decoration: none; font-weight: 600; font-size: 13px;">
-          <span>📈 Growth Analytics Dashboard</span>
-          <span>↗</span>
+
+        <!-- Executive Dashboard (Executive Role Only) -->
+        <a id="roleDashboardLink" href="dashboard.html" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #F8FAFC; border: 1.5px solid #0F172A; border-radius: 10px; color: #0F172A; text-decoration: none; font-weight: 600; font-size: 13px;">
+          <div>
+            <div>📈 Marketing &amp; Financial Analytics Dashboard</div>
+            <div style="font-size: 11px; font-weight: 400; color: #64748B; margin-top: 2px;">Revenue realization, ROAS, ₹48k ad budget model</div>
+          </div>
+          <span style="font-size: 16px;">↗</span>
         </a>
-        <a href="suite.html" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; color: #475569; text-decoration: none; font-weight: 500; font-size: 12px;">
+
+        <!-- Notice shown only to employees -->
+        <div id="employeeExecNotice" style="display: none; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 12px; font-size: 11px; color: #92400E;">
+          🔒 <strong>Financial Dashboard Locked:</strong> Requires Executive Management passcode to view hospital billing models &amp; budgets.
+        </div>
+
+        <!-- 3-in-1 Suite -->
+        <a href="suite.html" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; color: #475569; text-decoration: none; font-weight: 500; font-size: 12px;">
           <span>🎛️ 3-in-1 Unified Executive Suite</span>
           <span>↗</span>
         </a>
       </div>
+
       <div style="margin-top: 14px; text-align: center;">
         <button type="button" onclick="lockAdminSession()" style="background: none; border: none; color: #DC2626; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: underline;">
-          🔒 Lock Admin Session &amp; Logout
+          🔒 Lock Session &amp; Logout
         </button>
       </div>
     </div>
